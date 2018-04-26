@@ -1,0 +1,30 @@
+{
+  "name": "express_api",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "node ./compiled/server.js",
+    "build": "npm run clean && npm run build:server",
+    "build:server": "babel ./server --out-dir ./compiled",
+    "clean": "npm rm -rf compiled"
+  },
+  "engines": {
+    "node": "8.x"
+  },
+  "author": "Kento75",
+  "license": "MIT",
+  "description": "Express API",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cors": "^2.8.4",
+    "express": "^4.14.0",
+    "mongoose": "^4.5.3",
+    "webpack-dev-middleware": "^1.6.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.10.1",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.11.1",
+    "webpack": "^1.13.1"
+  }
+}
