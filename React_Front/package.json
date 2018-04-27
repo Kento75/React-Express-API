@@ -1,5 +1,5 @@
 {
-  "name": "react_front",
+  "name": "react-redux-sample",
   "version": "0.0.0",
   "scripts": {
     "start": "node ./compiled/server.js",
@@ -9,13 +9,14 @@
     "clean": "npm rm -rf static && npm rm -rf compiled"
   },
   "engines": {
-    "node": "8.x"
+    "node": "5.x"
   },
-  "author": "Kento75",
+  "author": "Your Name",
   "license": "MIT",
-  "description": "React Search",
+  "description": "search screen sample by react + redux + material-ui + MongoDB",
   "dependencies": {
     "axios": "^0.12.0",
+    "cors": "^2.8.4",
     "express": "^4.14.0",
     "material-ui": "^0.16.3",
     "react": "^15.4.0",

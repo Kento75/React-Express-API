@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 export default () => {
   const connect = () => {
-    const DB_URI = 'mongodb://localhost/ReactReduxSample';
+    const DB_URI = 'mongodb://localhost/Express_api';
     mongoose.connect(DB_URI, (err) => {
       if (err) {
         console.log(`===>  Error connecting to ${DB_URI}`);

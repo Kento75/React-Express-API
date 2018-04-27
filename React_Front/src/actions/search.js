@@ -16,7 +16,7 @@ export function search(){
     dispatch( requestProcess() );
 
     const searchWord = getState().rootReducer.search.searchWord;
-    return makeRequest('http://localhost:3000/find', 'post', { searchWord })
+    return makeRequest('http://localhost:3000/companyFind', 'post', { searchWord })
       .then(response => {
         if (response.status === 200) {
           return dispatch({

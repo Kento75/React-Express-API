@@ -3,10 +3,8 @@ import express from 'express';
 import db from './db';
 import bodyParser from 'body-parser';
 
-
-var app = express();
-
 var cors = require('cors');
+var app = express();
 app.use(cors());
 
 db.connect();
@@ -14,16 +12,15 @@ db.connect();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 
-app.use(express.static('public'));
 
 // Access to DB controllers
-const sampleController = db.controllers && db.controllers.Sample;
-if (sampleController) {
-  app.post('/find', sampleController.find);
-  app.post('/add', sampleController.add);
+const companyMasterController = db.controllers && db.controllers.Sample;
+if (companyMasterController) {
+  app.post('/companyFind', companyMasterController.companyFind);
+  app.post('/companyAdd', companyMasterController.companyAdd);
 }
 
-app.listen(3000, 'localhost', function(err) {
+app.listen(3000, function(err) {
   if (err) {
     console.log(err);
     return;

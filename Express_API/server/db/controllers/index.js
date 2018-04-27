@@ -1,7 +1,7 @@
-import Sample from './sampleController';
+import CompanyMaster from './companyMasterController';
 
-export { Sample };
+export { CompanyMaster };
 
 export default {
-  Sample
+  CompanyMaster
 };
