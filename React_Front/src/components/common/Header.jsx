@@ -15,7 +15,7 @@ const muiTheme = getMuiTheme();
 
 const AppBarIconMenu = (props) => (
   <AppBar
-    title="Title"
+    title="React Front"
     iconElementLeft={
       <IconMenu
       iconButtonElement={
@@ -32,6 +32,10 @@ const AppBarIconMenu = (props) => (
       <MenuItem
         primaryText="search"
         containerElement={<Link to="/search" />}
+      />
+      <MenuItem
+        primaryText="create"
+        containerElement={<Link to="/create" />}
       />
       <MenuItem
         primaryText="HelloWorld"

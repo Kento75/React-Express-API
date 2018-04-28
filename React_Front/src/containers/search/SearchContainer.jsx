@@ -6,8 +6,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import Search from '../../components/search/Search';
-import AlertDialog from '../../components/search/AlertDialog';
-import LoadingDialog from '../../components/search/LoadingDialog';
+import AlertDialog from '../../components/common/AlertDialog';
+import LoadingDialog from '../../components/common/LoadingDialog';
 import * as searchActions from '../../actions/search/search';
 
 

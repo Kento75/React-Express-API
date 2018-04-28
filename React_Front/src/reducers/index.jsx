@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import search from './search/search';
-import search from './create/create';
+import create from './create/create';
 
 const rootReducer = combineReducers({
   search,

@@ -4,18 +4,18 @@ import { bindActionCreators } from 'redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import Create from '../components/create/Create';
-import AlertDialog from '../components/common/AlertDialog';
-import LoadingDialog from '../components/common/LoadingDialog';
-import * as createActions from '../actions/create/create';
+import Create from '../../components/create/Create';
+import AlertDialog from '../../components/common/AlertDialog';
+import LoadingDialog from '../../components/common/LoadingDialog';
+import * as createActions from '../../actions/create/create';
 
 
 class CreateContainer extends Component {
   constructor(props) {
     super(props);
 
-    this.handleChangeCompanyCode = this.handleChangeChangeCompanyCode.bind(this);
-    this.handleChangeCompanyName = this.handleChangeChangeCompanyName.bind(this);
+    this.handleChangeCompanyCode = this.handleChangeCompanyCode.bind(this);
+    this.handleChangeCompanyName = this.handleChangeCompanyName.bind(this);
     this.handleChangeAddress = this.handleChangeAddress.bind(this);
     this.handleChangeMail = this.handleChangeMail.bind(this);
     this.handleOnClickRegisterBtn = this.handleOnClickRegisterBtn.bind(this);
@@ -79,6 +79,7 @@ class CreateContainer extends Component {
             onChangeCompanyName={this.handleChangeCompanyName}
             onChangeAddress={this.handleChangeAddress}
             onChangeMail={this.handleChangeMail}
+            onClickRegisterBtn={this.handleOnClickRegisterBtn}
           />
           <LoadingDialog
             isLoadingOpen={isProcessing}
@@ -93,11 +94,11 @@ class CreateContainer extends Component {
   }
 };
 
-SearchContainer.propTypes = {
-  company_code: PropTypes.string.isRequired,
-  company_name: PropTypes.string.isRequired,
-  address:      PropTypes.string.isRequired,
-  mail:         PropTypes.string.isRequired,
+CreateContainer.propTypes = {
+  company_code:   PropTypes.string.isRequired,
+  company_name:   PropTypes.string.isRequired,
+  address:        PropTypes.string.isRequired,
+  mail:           PropTypes.string.isRequired,
   isProcessing:   PropTypes.bool.isRequired,
   alertMessage:   PropTypes.string.isRequired
 }
@@ -110,7 +111,7 @@ function mapStateToProps( state ){
     mail,
     isProcessing,
     alertMessage
-  } = state.rootReducer.search;
+  } = state.rootReducer.create;
   return {
     company_code,
     company_name,
@@ -123,7 +124,7 @@ function mapStateToProps( state ){
 
 function mapDispatchToProps( dispatch ) {
   return {
-    createActionBind: bindActionCreators(searchActions, dispatch)
+    createActionBind: bindActionCreators(createActions, dispatch)
   };
 }
 

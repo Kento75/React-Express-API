@@ -4,69 +4,73 @@ import TextField from 'material-ui/TextField';
 import { Table, TableBody, TableRow, TableRowColumn } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
 
-const styles = {
-  registerBtn: {
-    isAdd: {
-      display: 'inline-block'
-    },
-    isNotAdd: {
-      display: 'none'
-    }
-  }
-}
 
-const Search = ({
-  searchWord,
-  searchedList,
-  isAddMode,
-  onChangeSearchWord,
-  enterSearchEdit,
+const Create = ({
+  company_code,
+  company_name,
+  address,
+  mail,
+  onChangeCompanyCode,
+  onChangeCompanyName,
+  onChangeAddress,
+  onChangeMail,
   onClickRegisterBtn
 }) => (
   <div>
     <div>
       <TextField
-        hintText="検索ワード"
-        floatingLabelText="Enterで検索"
-        value={ searchWord }
-        onKeyDown={e => enterSearchEdit(e)}
-        onChange={e => onChangeSearchWord(e)}
+        hintText="会社コード"
+        floatingLabelText="会社コード"
+        value={ company_code }
+        onChange={e => onChangeCompanyCode(e)}
       />
     </div>
+    <br />
     <div>
-      <Table>
-        <TableBody
-          displayRowCheckbox={false}
-        >
-          {searchedList.map( searchedData =>
-            <TableRow>
-              <TableRowColumn>{searchedData._id}</TableRowColumn>
-              <TableRowColumn>{searchedData.title}</TableRowColumn>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
-      <br />
-      <RaisedButton
-        label="新規登録"
-        secondary={true}
-        style={ (isAddMode) ? styles.registerBtn.isAdd : styles.registerBtn.isNotAdd }
-        onClick={onClickRegisterBtn}
+      <TextField
+        hintText="会社名"
+        floatingLabelText="会社名"
+        value={ company_name }
+        onChange={e => onChangeCompanyName(e)}
       />
     </div>
+    <br />
+    <div>
+      <TextField
+        hintText="住所"
+        floatingLabelText="住所"
+        value={ address }
+        onChange={e => onChangeAddress(e)}
+      />
+    </div>
+    <br />
+    <div>
+      <TextField
+        hintText="メールアドレス"
+        floatingLabelText="メールアドレス"
+        value={ mail }
+        onChange={e => onChangeMail(e)}
+      />
+    </div>
+    <br />
+    <RaisedButton
+      label="登録実行"
+      secondary={true}
+      onClick={onClickRegisterBtn}
+    />
   </div>
 )
 
-Search.propTypes = {
-  searchWord: PropTypes.string.isRequired,
-  searchedList: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired
-  })).isRequired,
-  isAddMode: PropTypes.bool.isRequired,
-  onChangeSearchWord: PropTypes.func.isRequired,
-  enterSearchEdit: PropTypes.func.isRequired,
-  onClickRegisterBtn: PropTypes.func.isRequired
+Create.propTypes = {
+  company_code:         PropTypes.string.isRequired,
+  company_name:         PropTypes.string.isRequired,
+  address:              PropTypes.string.isRequired,
+  mail:                 PropTypes.string.isRequired,
+  onChangeCompanyCode:  PropTypes.func.isRequired,
+  onChangeCompanyName:  PropTypes.func.isRequired,
+  onChangeAddress:      PropTypes.func.isRequired,
+  onChangeMail:         PropTypes.func.isRequired,
+  onClickRegisterBtn:   PropTypes.func.isRequired
 }
 
-export default Search;
+export default Create;
