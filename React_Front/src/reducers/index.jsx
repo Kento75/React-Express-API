@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux';
-import search from './search';
-// import { routerReducer as routing } from 'react-router-redux';
+import search from './search/search';
+import create from './create/create';
 
 const rootReducer = combineReducers({
-  search
+  search,
+  create
 });
 
 export default rootReducer;

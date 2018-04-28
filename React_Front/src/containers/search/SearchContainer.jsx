@@ -2,14 +2,13 @@ import { connect } from 'react-redux';
 import React, { Component,PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 
-import Search from '../components/Search';
-import AlertDialog from '../components/AlertDialog';
-import LoadingDialog from '../components/LoadingDialog';
-
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import * as searchActions from '../actions/search';
+import Search from '../../components/search/Search';
+import AlertDialog from '../../components/common/AlertDialog';
+import LoadingDialog from '../../components/common/LoadingDialog';
+import * as searchActions from '../../actions/search/search';
 
 
 class SearchContainer extends Component {
