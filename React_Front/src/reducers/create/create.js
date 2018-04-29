@@ -1,5 +1,5 @@
 
-export default function search(state = {
+export default function create(state = {
     company_code: '',
     company_name: '',
     address: '',
@@ -9,29 +9,24 @@ export default function search(state = {
   }, action = {}){
     switch( action.type ){
       case 'CHANGE_COMPANY_CODE':
-      return Object.assign({}, state, {
-        company_code: action.company_code
-      });
+        return Object.assign({}, state, {
+          company_code: action.company_code
+        });
       case 'CHANGE_COMPANY_NAME':
-      return Object.assign({}, state, {
-        company_name: action.company_name
-      });
+        return Object.assign({}, state, {
+          company_name: action.company_name
+        });
       case 'CHANGE_ADDRESS':
-      return Object.assign({}, state, {
-        address: action.address
-      });
+        return Object.assign({}, state, {
+          address: action.address
+        });
       case 'CHANGE_MAIL':
-      return Object.assign({}, state, {
-        mail: action.mail
-      });
+        return Object.assign({}, state, {
+          mail: action.mail
+        });
       case 'REQUEST_PROCESS':
         return Object.assign({}, state, {
           isProcessing: true
-        });
-      case 'FAILED_SEARCH':
-        return Object.assign({}, state, {
-          isProcessing: false,
-          alertMessage: action.message
         });
       case 'SUCCESS_REGISTAR':
         return Object.assign({}, state, {

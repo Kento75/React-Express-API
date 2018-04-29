@@ -17,7 +17,6 @@ class SearchContainer extends Component {
 
     this.handleChangeSearchWord = this.handleChangeSearchWord.bind(this);
     this.handleEnterSearchEdit = this.handleEnterSearchEdit.bind(this);
-    this.handleOnClickRegisterBtn = this.handleOnClickRegisterBtn.bind(this);
     this.handleOnClickOkBtn = this.handleOnClickOkBtn.bind(this);
   }
 
@@ -30,13 +29,8 @@ class SearchContainer extends Component {
     const { searchActionBind } = this.props;
     const ENTER_KEY_CODE = 13;
     if(e.keyCode == ENTER_KEY_CODE){
-      searchActionBind.search();
+      searchActionBind.searchData();
     }
-  }
-
-  handleOnClickRegisterBtn(){
-    const { searchActionBind } = this.props;
-    searchActionBind.registarSearchWord();
   }
 
   handleOnClickOkBtn(){
@@ -46,8 +40,10 @@ class SearchContainer extends Component {
 
   render() {
     const {
-      searchWord, searchedList, isAddMode,
-      isProcessing, alertMessage
+      searchWord,
+      searchedList,
+      isProcessing,
+      alertMessage
     } = this.props;
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
@@ -55,10 +51,8 @@ class SearchContainer extends Component {
           <Search
             searchWord={searchWord}
             searchedList={searchedList}
-            isAddMode={isAddMode}
             onChangeSearchWord={this.handleChangeSearchWord}
             enterSearchEdit={this.handleEnterSearchEdit}
-            onClickRegisterBtn={this.handleOnClickRegisterBtn}
           />
           <LoadingDialog
             isLoadingOpen={isProcessing}
@@ -76,10 +70,11 @@ class SearchContainer extends Component {
 SearchContainer.propTypes = {
   searchWord: PropTypes.string.isRequired,
   searchedList: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired
+    company_code: PropTypes.string.isRequired,
+    company_name: PropTypes.string.isRequired,
+    address:      PropTypes.string.isRequired,
+    mail:         PropTypes.string.isRequired
   })).isRequired,
-  isAddMode: PropTypes.bool.isRequired,
   isProcessing: PropTypes.bool.isRequired,
   alertMessage: PropTypes.string.isRequired
 }
@@ -88,14 +83,12 @@ function mapStateToProps( state ){
   const {
     searchWord,
     searchedList,
-    isAddMode,
     isProcessing,
     alertMessage
   } = state.rootReducer.search;
   return {
     searchWord,
     searchedList,
-    isAddMode,
     isProcessing,
     alertMessage
   };

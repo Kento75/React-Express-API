@@ -8,13 +8,13 @@ export function companyFind(req, res) {
   // check sql injection
   if( typeof req.body.searchWord === "string" ){
     searchcondition = {
-      title: getForwardMatchString(req.body.searchWord)
+      company_code: getForwardMatchString(req.body.searchWord)
     };
   }
   else {
     return res.status(500).send();
   }
-  CompanyMaster.find(searchcondition).exec((err, sampleList) => {
+  CompanyMaster.find(searchcondition).exec((err, companyList) => {
   if (err) {
     console.log('companyMasterController/find error');
     console.log(err);

@@ -11,7 +11,7 @@ function requestProcess(){
   return { type: 'REQUEST_PROCESS' };
 }
 
-export function search(){
+export function searchData(){
   return ( dispatch, getState ) => {
     dispatch( requestProcess() );
 
@@ -21,7 +21,7 @@ export function search(){
         if (response.status === 200) {
           return dispatch({
                     type: 'SUCCESS_SEARCH',
-                    searchedList: response.data.sampleList
+                    searchedList: response.data.companyList
                   });
         }
         else {
@@ -35,34 +35,6 @@ export function search(){
           return dispatch({
                     type: 'FAILED_SEARCH',
                     message: "検索に失敗しました。"
-                  });
-      });
-  };
-}
-
-export function registarSearchWord(){
-  return ( dispatch, getState ) => {
-    dispatch( requestProcess() );
-
-    const searchWord = getState().rootReducer.search.searchWord;
-    return makeRequest('http://localhost:3000/add', 'post', { title: searchWord })
-      .then(response => {
-        if (response.status === 200) {
-          return dispatch({
-                    type: 'SUCCESS_REGISTAR'
-                  });
-        }
-        else {
-          return dispatch({
-                    type: 'FAILED_REGISTAR',
-                    message: "登録に失敗しました。"
-                  });
-        }
-      })
-      .catch(() => {
-          return dispatch({
-                    type: 'FAILED_REGISTAR',
-                    message: "登録に失敗しました。"
                   });
       });
   };

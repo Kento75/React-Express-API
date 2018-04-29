@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 
 // Access to DB controllers
-const companyMasterController = db.controllers && db.controllers.Sample;
+const companyMasterController = db.controllers && db.controllers.CompanyMaster;
 if (companyMasterController) {
   app.post('/companyFind', companyMasterController.companyFind);
   app.post('/companyAdd', companyMasterController.companyAdd);
