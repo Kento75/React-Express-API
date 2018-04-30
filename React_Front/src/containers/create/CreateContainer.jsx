@@ -60,21 +60,21 @@ class CreateContainer extends Component {
 
   render() {
     const {
-      company_code,
-      company_name,
-      address,
-      mail,
-      isProcessing,
-      alertMessage
+      create_company_code,
+      create_company_name,
+      create_address,
+      create_mail,
+      create_isProcessing,
+      create_alertMessage
     } = this.props;
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <div>
           <Create
-            company_code={company_code}
-            company_name={company_name}
-            address={address}
-            mail={mail}
+            create_company_code={create_company_code}
+            create_company_name={create_company_name}
+            create_address={create_address}
+            create_mail={create_mail}
             onChangeCompanyCode={this.handleChangeCompanyCode}
             onChangeCompanyName={this.handleChangeCompanyName}
             onChangeAddress={this.handleChangeAddress}
@@ -82,10 +82,10 @@ class CreateContainer extends Component {
             onClickRegisterBtn={this.handleOnClickRegisterBtn}
           />
           <LoadingDialog
-            isLoadingOpen={isProcessing}
+            isLoadingOpen={create_isProcessing}
           />
           <AlertDialog
-            message={alertMessage}
+            message={create_alertMessage}
             onCloseDialog={this.handleOnClickOkBtn}
           />
         </div>
@@ -95,30 +95,30 @@ class CreateContainer extends Component {
 };
 
 CreateContainer.propTypes = {
-  company_code:   PropTypes.string.isRequired,
-  company_name:   PropTypes.string.isRequired,
-  address:        PropTypes.string.isRequired,
-  mail:           PropTypes.string.isRequired,
-  isProcessing:   PropTypes.bool.isRequired,
-  alertMessage:   PropTypes.string.isRequired
+  create_company_code:   PropTypes.string.isRequired,
+  create_company_name:   PropTypes.string.isRequired,
+  create_address:        PropTypes.string.isRequired,
+  create_mail:           PropTypes.string.isRequired,
+  create_isProcessing:   PropTypes.bool.isRequired,
+  create_alertMessage:   PropTypes.string.isRequired
 }
 
 function mapStateToProps( state ){
   const {
-    company_code,
-    company_name,
-    address,
-    mail,
-    isProcessing,
-    alertMessage
+    create_company_code,
+    create_company_name,
+    create_address,
+    create_mail,
+    create_isProcessing,
+    create_alertMessage
   } = state.rootReducer.create;
   return {
-    company_code,
-    company_name,
-    address,
-    mail,
-    isProcessing,
-    alertMessage
+    create_company_code,
+    create_company_name,
+    create_address,
+    create_mail,
+    create_isProcessing,
+    create_alertMessage
   };
 }
 

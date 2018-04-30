@@ -10,7 +10,7 @@ export default function search(state = {
       return Object.assign({}, state, {
         searchWord: action.searchWord
       });
-    case 'REQUEST_PROCESS':
+    case 'SEARCH_REQUEST_PROCESS':
       return Object.assign({}, state, {
         isProcessing: true
       });
@@ -24,7 +24,7 @@ export default function search(state = {
         isProcessing: false,
         alertMessage: action.message
       });
-    case 'CHANGE_ALERT_MESSAGE':
+    case 'CHANGE_SEARCH_ALERT_MESSAGE':
       return Object.assign({}, state, {
         alertMessage: action.message
       });

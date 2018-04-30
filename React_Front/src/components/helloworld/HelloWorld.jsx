@@ -8,10 +8,10 @@ class HelloWorld extends Component {
   render() {
     return (
       <div>
-        Hello World
+        <div>Hello World</div>
       </div>
     );
   }
 };
 
-export default withRouter(HelloWorld);
+export default HelloWorld;

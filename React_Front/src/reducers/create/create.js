@@ -1,50 +1,50 @@
 
 export default function create(state = {
-    company_code: '',
-    company_name: '',
-    address: '',
-    mail: '',
-    isProcessing: false,
-    alertMessage: ''
+    create_company_code: '',
+    create_company_name: '',
+    create_address: '',
+    create_mail: '',
+    create_isProcessing: false,
+    create_alertMessage: ''
   }, action = {}){
     switch( action.type ){
-      case 'CHANGE_COMPANY_CODE':
+      case 'CREATE_CHANGE_COMPANY_CODE':
         return Object.assign({}, state, {
-          company_code: action.company_code
+          create_company_code: action.create_company_code
         });
-      case 'CHANGE_COMPANY_NAME':
+      case 'CREATE_CHANGE_COMPANY_NAME':
         return Object.assign({}, state, {
-          company_name: action.company_name
+          create_company_name: action.create_company_name
         });
-      case 'CHANGE_ADDRESS':
+      case 'CREATE_CHANGE_ADDRESS':
         return Object.assign({}, state, {
-          address: action.address
+          create_address: action.create_address
         });
-      case 'CHANGE_MAIL':
+      case 'CREATE_CHANGE_MAIL':
         return Object.assign({}, state, {
-          mail: action.mail
+          create_mail: action.create_mail
         });
-      case 'REQUEST_PROCESS':
+      case 'CREATE_REQUEST_PROCESS':
         return Object.assign({}, state, {
-          isProcessing: true
+          create_isProcessing: true
         });
-      case 'SUCCESS_REGISTAR':
+      case 'CREATE_SUCCESS_REGISTAR':
         return Object.assign({}, state, {
-          isProcessing: false,
-          alertMessage: "登録しました。",
-          company_code: '',
-          company_name: '',
-          address: '',
-          mail: '',
+          create_isProcessing: false,
+          create_alertMessage: "登録しました。",
+          create_company_code: '',
+          create_company_name: '',
+          create_address: '',
+          create_mail: '',
         });
-      case 'FAILED_REGISTAR':
+      case 'CREATE_FAILED_REGISTAR':
         return Object.assign({}, state, {
-          isProcessing: false,
-          alertMessage: action.message
+          create_isProcessing: false,
+          create_alertMessage: action.message
         });
-      case 'CHANGE_ALERT_MESSAGE':
+      case 'CREATE_CHANGE_ALERT_MESSAGE':
         return Object.assign({}, state, {
-          alertMessage: action.message
+          create_alertMessage: action.message
         });
       default:
         return state;

@@ -2,41 +2,41 @@ import request from 'axios';
 
 
 // 会社コード入力値変更時
-export function changeCompanyCode( company_code ){
+export function changeCompanyCode( create_company_code ){
   return {
-    type: 'CHANGE_COMPANY_CODE',
-    company_code
+    type: 'CREATE_CHANGE_COMPANY_CODE',
+    create_company_code
   };
 }
 
 // 会社名入力値変更時
-export function changeCompanyName( company_name ){
+export function changeCompanyName( create_company_name ){
     return {
-      type: 'CHANGE_COMPANY_NAME',
-      company_name
+      type: 'CREATE_CHANGE_COMPANY_NAME',
+      create_company_name
     };
   }
 
 // 住所入力値変更時
-export function changeAddress( address ){
+export function changeAddress( create_address ){
   return {
-    type: 'CHANGE_ADDRESS',
-    address
+    type: 'CREATE_CHANGE_ADDRESS',
+    create_address
   };
 }
 
 // メールアドレス入力値変更時
-export function changeMail( mail ){
+export function changeMail( create_mail ){
   return {
-    type: 'CHANGE_MAIL',
-    mail
+    type: 'CREATE_CHANGE_MAIL',
+    create_mail
   };
 }
 
 // 登録実行押下時①
 // ロード画面表示
 function requestProcess(){
-  return { type: 'REQUEST_PROCESS' };
+  return { type: 'CREATE_REQUEST_PROCESS' };
 }
 
 // 登録実行押下時②
@@ -45,44 +45,44 @@ export function registarCreateData(){
   return ( dispatch, getState ) => {
     dispatch( requestProcess() );
 
-    const company_code = getState().rootReducer.create.company_code;
-    const company_name = getState().rootReducer.create.company_name;
-    const address      = getState().rootReducer.create.address;
-    const mail         = getState().rootReducer.create.mail;
+    const create_company_code = getState().rootReducer.create.create_company_code;
+    const create_company_name = getState().rootReducer.create.create_company_name;
+    const create_address      = getState().rootReducer.create.create_address;
+    const create_mail         = getState().rootReducer.create.create_mail;
 
     return makeRequest('http://localhost:3000/companyAdd', 'post',
-      { company_code: company_code,
-        company_name: company_name,
-        address:      address,
-        mail:         mail,
+      { company_code: create_company_code,
+        company_name: create_company_name,
+        address:      create_address,
+        mail:         create_mail,
       })
       .then(response => {
         if (response.status === 200) {
           return dispatch({
-                    type: 'SUCCESS_REGISTAR'
+                    type: 'CREATE_SUCCESS_REGISTAR'
                   });
         }
         else {
           return dispatch({
-                    type: 'FAILED_REGISTAR',
+                    type: 'CREATE_FAILED_REGISTAR',
                     message: "登録に失敗しました。"
                   });
         }
       })
       .catch(() => {
           return dispatch({
-                    type: 'FAILED_REGISTAR',
-                    message: "登録に失敗しました。"
+                    type: 'CREATE_FAILED_REGISTAR',
+                    message: "例外が発生しました。"
                   });
       });
   };
 }
 
 // ダイアログ表示メッセージの変更
-export function changeAlertMessage( message ){
+export function changeAlertMessage( create_message ){
   return {
-    type: 'CHANGE_ALERT_MESSAGE',
-    message
+    type: 'CREATE_CHANGE_ALERT_MESSAGE',
+    create_message
   }
 }
 
