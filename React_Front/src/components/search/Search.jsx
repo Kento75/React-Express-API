@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { withRouter } from 'react-router';
 import TextField from 'material-ui/TextField';
 import { Table, TableBody, TableRow, TableRowColumn } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -52,4 +51,4 @@ Search.propTypes = {
   enterSearchEdit: PropTypes.func.isRequired
 }
 
-export default withRouter(Search);
+export default Search;

@@ -6,10 +6,10 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 
 const Create = ({
-  company_code,
-  company_name,
-  address,
-  mail,
+  create_company_code,
+  create_company_name,
+  create_address,
+  create_mail,
   onChangeCompanyCode,
   onChangeCompanyName,
   onChangeAddress,
@@ -21,7 +21,7 @@ const Create = ({
       <TextField
         hintText="会社コード"
         floatingLabelText="会社コード"
-        value={ company_code }
+        value={ create_company_code }
         onChange={e => onChangeCompanyCode(e)}
       />
     </div>
@@ -30,7 +30,7 @@ const Create = ({
       <TextField
         hintText="会社名"
         floatingLabelText="会社名"
-        value={ company_name }
+        value={ create_company_name }
         onChange={e => onChangeCompanyName(e)}
       />
     </div>
@@ -39,7 +39,7 @@ const Create = ({
       <TextField
         hintText="住所"
         floatingLabelText="住所"
-        value={ address }
+        value={ create_address }
         onChange={e => onChangeAddress(e)}
       />
     </div>
@@ -48,7 +48,7 @@ const Create = ({
       <TextField
         hintText="メールアドレス"
         floatingLabelText="メールアドレス"
-        value={ mail }
+        value={ create_mail }
         onChange={e => onChangeMail(e)}
       />
     </div>
@@ -62,10 +62,10 @@ const Create = ({
 )
 
 Create.propTypes = {
-  company_code:         PropTypes.string.isRequired,
-  company_name:         PropTypes.string.isRequired,
-  address:              PropTypes.string.isRequired,
-  mail:                 PropTypes.string.isRequired,
+  create_company_code:         PropTypes.string.isRequired,
+  create_company_name:         PropTypes.string.isRequired,
+  create_address:              PropTypes.string.isRequired,
+  create_mail:                 PropTypes.string.isRequired,
   onChangeCompanyCode:  PropTypes.func.isRequired,
   onChangeCompanyName:  PropTypes.func.isRequired,
   onChangeAddress:      PropTypes.func.isRequired,
