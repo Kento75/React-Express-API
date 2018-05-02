@@ -4,6 +4,9 @@ export default function search(state = {
   isProcessing: false,
   searchedList: [],
   alertMessage: "",
+  count: 0,
+  page: 0,
+  rowSize: 0
 }, action = {}){
   switch( action.type ){
     case 'CHANGE_SEARCH_WORD':

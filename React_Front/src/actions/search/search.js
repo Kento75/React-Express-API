@@ -8,7 +8,7 @@ export function changeSearchWord( searchWord ){
 }
 
 function requestProcess(){
-  return { type: 'REQUEST_PROCESS' };
+  return { type: 'SEARCH_REQUEST_PROCESS' };
 }
 
 export function searchData(){
