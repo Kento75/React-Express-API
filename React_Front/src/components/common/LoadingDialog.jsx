@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import Dialog from 'material-ui/Dialog';
-import CircularProgress from 'material-ui/CircularProgress';
+import LinearProgress from 'material-ui/LinearProgress';
 
 const componentStyles = {
   dialog: {
-    width: '40%',
+    width: '45%',
     maxWidth: 'none'
   }
 };
@@ -19,7 +19,7 @@ const LoadingDialog = ({
     contentStyle={componentStyles.dialog}
   >
     <div style={{textAlign: "center"}}>
-      <CircularProgress/>
+      <LinearProgress mode="indeterminate" color="#FF9800" />
     </div>
   </Dialog>
 );

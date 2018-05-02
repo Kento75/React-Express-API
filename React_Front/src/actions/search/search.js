@@ -42,7 +42,7 @@ export function searchData(){
 
 export function changeAlertMessage( message ){
   return {
-    type: 'CHANGE_ALERT_MESSAGE',
+    type: 'CHANGE_SEARCH_ALERT_MESSAGE',
     message
   }
 }
