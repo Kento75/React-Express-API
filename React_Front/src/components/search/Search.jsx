@@ -1,6 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
-import { Table, TableBody, TableRow, TableRowColumn } from 'material-ui/Table';
+import Table, {
+  TableBody,
+  TableCell,
+  TableHead,
+  TablePagination,
+  TableRow,
+  TableSortLabel,
+} from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
 import Divider from 'material-ui/Divider';
 import DataTables from 'material-ui-datatables';
@@ -30,6 +37,7 @@ const Search = ({
   count,
   page,
   rowSize,
+  filterValue,
   onChangeSearchWord,
   enterSearchEdit
 }) => (
@@ -52,7 +60,10 @@ const Search = ({
         columns={TABLE_COLUMNS}
         data={searchedList}
         showCheckboxes={true}
+        filterValue={filterValue}
+        initialSort={{column: 'company_code', order: 'asc'}}
         showHeaderToolbar={true}
+        headerToolbarMode={'filter'}
         onPreviousPageClick={e => onPreviousPageClick(e)}
         onNextPageClick={e => onNextPageClick(e)}
         onRowSizeChange={e => onRowSizeChange(e, rowSize)}
@@ -75,6 +86,7 @@ Search.propTypes = {
     address:      PropTypes.string.isRequired,
     mail:         PropTypes.string.isRequired
   })).isRequired,
+  filterValue: PropTypes.string.isRequired,
   count: PropTypes.number.isRequired, 
   page: PropTypes.number.isRequired, 
   rowSize: PropTypes.number.isRequired,

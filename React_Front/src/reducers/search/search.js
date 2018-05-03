@@ -5,8 +5,9 @@ export default function search(state = {
   searchedList: [],
   alertMessage: "",
   count: 0,
-  page: 0,
-  rowSize: 0
+  page: 1,
+  rowSize: 10,
+  filterValue: ''
 }, action = {}){
   switch( action.type ){
     case 'CHANGE_SEARCH_WORD':
@@ -16,6 +17,10 @@ export default function search(state = {
     case 'SEARCH_REQUEST_PROCESS':
       return Object.assign({}, state, {
         isProcessing: true
+      });
+    case 'CHANGE_FILTER_VALUE':
+      return Object.assign({}, state, {
+        filterValue: action.filterValue
       });
     case 'SUCCESS_SEARCH':
       return Object.assign({}, state, {

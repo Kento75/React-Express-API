@@ -11,6 +11,12 @@ function requestProcess(){
   return { type: 'SEARCH_REQUEST_PROCESS' };
 }
 
+// フィルターチェンジ
+export function changeFilterValue( filterValue ) {
+  return 'CHANGE_FILTER_VALUE',
+  filterValue
+}
+
 export function searchData(){
   return ( dispatch, getState ) => {
     dispatch( requestProcess() );

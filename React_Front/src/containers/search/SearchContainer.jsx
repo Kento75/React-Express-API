@@ -15,13 +15,6 @@ class SearchContainer extends Component {
   constructor(props) {
     super(props);
 
-    // テーブル設定
-    this.state = {
-      page:        1,
-      rowSize:     10,
-      filterValue: null,
-    };
-
     // 【検索ワード入力項目】値変更時
     this.handleChangeSearchWord = this.handleChangeSearchWord.bind(this);
     // 【検索ワード入力項目】入力項目でエンター押下時
@@ -63,14 +56,10 @@ class SearchContainer extends Component {
   }
 
   // 【フィルター項目】フィルター変更時
-  handleFilterValueChange(...args) {
-    // eslint-disable-next-line no-console
-    let filterValue = get(args, '[0]', null);
-    if (filterValue) {
-      filterValue = filterValue.toLowerCase();
-    }
-    const newState = Object.assign({}, this.state, { filterValue });
-    this.setState(newState);
+  handleFilterValueChange(e) {
+//    const { searchActionBind } = this.props;
+//    searchActionBind.changeFilterValue(e.target.value);
+    console.log('フィルタデバッグ：' + e.target.value)
   }
 
   // 【テーブルヘッダ（ソートキー）】押下時
@@ -97,6 +86,7 @@ class SearchContainer extends Component {
     this.setState(newState);
   }
 
+  
   render() {
     const {
       searchWord,
@@ -105,7 +95,8 @@ class SearchContainer extends Component {
       alertMessage,
       count,
       page,
-      rowSize
+      rowSize,
+      filterValue
     } = this.props;
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
@@ -113,6 +104,10 @@ class SearchContainer extends Component {
           <Search
             searchWord={searchWord}
             searchedList={searchedList}
+            count={searchedList.length}
+            page={page}
+            rowSize={rowSize}
+            filterValue={filterValue}
             onChangeSearchWord={this.handleChangeSearchWord}
             enterSearchEdit={this.handleEnterSearchEdit}
             onPreviousPageClick={this.handlePreviousPageClick}
@@ -122,9 +117,6 @@ class SearchContainer extends Component {
             onCellDoubleClick={this.handleCellDoubleClick}
             onFilterValueChange={this.handleFilterValueChange}
             onSortOrderChange={this.handleSortOrderChange}
-            count={searchedList.length}
-            page={this.state.page}
-            rowSize={this.state.rowSize}
           />
           <LoadingDialog
             isLoadingOpen={isProcessing}
@@ -151,7 +143,8 @@ SearchContainer.propTypes = {
   alertMessage: PropTypes.string.isRequired,
   count: PropTypes.number.isRequired, 
   page: PropTypes.number.isRequired, 
-  rowSize: PropTypes.number.isRequired
+  rowSize: PropTypes.number.isRequired,
+  filterValue: PropTypes.string.isRequired
 }
 
 function mapStateToProps( state ){
@@ -162,7 +155,8 @@ function mapStateToProps( state ){
     alertMessage,
     count,
     page,
-    rowSize
+    rowSize,
+    filterValue
   } = state.rootReducer.search;
   return {
     searchWord,
@@ -171,7 +165,8 @@ function mapStateToProps( state ){
     alertMessage,
     count,
     page,
-    rowSize
+    rowSize,
+    filterValue
   };
 }
 
