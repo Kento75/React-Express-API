@@ -35,20 +35,58 @@ const Search = ({
   searchWord,
   searchedList,
   header,
+  companyCodeFilter,
+  companyNameFilter,
+  addressFilter,
+  mailFilter,
   columnToSort,
   sortDirection,
   onChangeSearchWord,
   enterSearchEdit,
-  onChangeSort
+  onChangeSort,
+  onChangeCompanyCodeFilter,
+  onChangeCompanyNameFilter,
+  onChangeAddressFilter,
+  onChangeMailFilter
 }) => (
   <div>
     <div>
       <TextField
         hintText="検索ワード(会社コード)"
         floatingLabelText="Enterで検索"
-        value={ searchWord }
+        value={searchWord}
         onKeyDown={e => enterSearchEdit(e)}
         onChange={e => onChangeSearchWord(e)}
+      />
+    </div>
+    <div>
+      <TextField
+        hintText='会社コード'
+        floatingLabelText='会社コード'
+        value={companyCodeFilter}
+        onChange={e => onChangeCompanyCodeFilter(e)}
+        floatingLabelFixed
+      />
+      <TextField
+        hintText='会社名'
+        floatingLabelText='会社名'
+        value={companyNameFilter}
+        onChange={e => onChangeCompanyNameFilter(e)}
+        floatingLabelFixed
+      />
+      <TextField
+        hintText='住所'
+        floatingLabelText='住所'
+        value={addressFilter}
+        onChange={e => onChangeAddressFilter(e)}
+        floatingLabelFixed
+      />
+      <TextField
+        hintText='メールアドレス'
+        floatingLabelText='メールアドレス'
+        value={mailFilter}
+        onChange={e => onChangeMailFilter(e)}
+        floatingLabelFixed
       />
     </div>
     <div>
@@ -103,6 +141,14 @@ Search.propTypes = {
     name: PropTypes.string.isRequired,
     prop: PropTypes.string.isRequired
   })).isRequired,
+  companyCodeFilter: PropTypes.string.isRequired,
+  companyNameFilter: PropTypes.string.isRequired,
+  addressFilter: PropTypes.string.isRequired,
+  mailFilter: PropTypes.string.isRequired,
+  onChangeCompanyCodeFilter: PropTypes.func.isRequired,
+  onChangeCompanyNameFilter: PropTypes.func.isRequired,
+  onChangeAddressFilter: PropTypes.func.isRequired,
+  onChangeMailFilter: PropTypes.func.isRequired,
   columnToSort: PropTypes.string.isRequired,
   sortDirection: PropTypes.string.isRequired,
   onChangeSearchWord: PropTypes.func.isRequired,

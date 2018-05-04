@@ -11,6 +11,35 @@ function requestProcess(){
   return { type: 'SEARCH_REQUEST_PROCESS' };
 }
 
+// フィルター
+export function changeCompanyCodeFilter( companyCodeFilter ) {
+  return {
+    type: 'CHANGE_COMPANY_CODE_FILTER',
+    companyCodeFilter
+  }
+}
+
+export function changeCompanyNameFilter( companyNameFilter ) {
+  return {
+    type: 'CHANGE_COMPANY_NAME_FILTER',
+    companyNameFilter
+  }
+}
+
+export function changeAddressFilter( addressFilter ) {
+  return {
+    type: 'CHANGE_ADDRESS_FILTER',
+    addressFilter
+  }
+}
+
+export function changeMailFilter( mailFilter ) {
+  return {
+    type: 'CHANGE_MAIL_FILTER',
+    mailFilter
+  }
+}
+
 // ソートチェンジ
 export function changeSortMode( columnName ) {
   return {

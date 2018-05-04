@@ -26,6 +26,10 @@ class SearchContainer extends Component {
 
     // テーブル制御系
     // 【フィルター項目】フィルター変更時
+    this.handleChangeCompanyCodeFilter = this.handleChangeCompanyCodeFilter.bind(this);
+    this.handleChangeCompanyNameFilter = this.handleChangeCompanyNameFilter.bind(this);
+    this.handleChangeAddressFilter = this.handleChangeAddressFilter.bind(this);
+    this.handleChangeMailFilter = this.handleChangeMailFilter.bind(this);
     // 【テーブルヘッダ（ソートキー）】押下時
     this.handleChangeSort = this.handleChangeSort.bind(this);
     // 【ページ表示行数項目】変更時
@@ -55,6 +59,25 @@ class SearchContainer extends Component {
   }
 
   // 【フィルター項目】フィルター変更時
+  handleChangeCompanyCodeFilter(e) {
+    const { searchActionBind } = this.props;
+    searchActionBind.changeCompanyCodeFilter(e.target.value);
+  }
+
+  handleChangeCompanyNameFilter(e) {
+    const { searchActionBind } = this.props;
+    searchActionBind.changeCompanyNameFilter(e.target.value);
+  }
+
+  handleChangeAddressFilter(e) {
+    const { searchActionBind } = this.props;
+    searchActionBind.changeAddressFilter(e.target.value);
+  }
+
+  handleChangeMailFilter(e) {
+    const { searchActionBind } = this.props;
+    searchActionBind.changeMailFilter(e.target.value);
+  }
 
   // 【テーブルヘッダ（ソートキー）】押下時
   handleChangeSort(e) {
@@ -76,21 +99,43 @@ class SearchContainer extends Component {
       isProcessing,
       alertMessage,
       header,
+      companyCodeFilter,
+      companyNameFilter,
+      addressFilter,
+      mailFilter,
       columnToSort,
       sortDirection
     } = this.props;
+    const lowerCaseCompanyCodeFilter = companyCodeFilter.toLowerCase();
+    const lowerCaseCompanyNameFilter = companyNameFilter.toLowerCase();
+    const lowerCaseAddressFilter = addressFilter.toLowerCase();
+    const lowerCaseMailFilter = mailFilter.toLowerCase();    
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <div>
           <Search
             searchWord={searchWord}
-            searchedList={orderBy(
-              searchedList,
-              columnToSort,
-              sortDirection)}
+            searchedList={
+              orderBy(
+                searchedList.filter(x =>
+                      x['company_code']
+                      .toLowerCase()
+                      .includes(lowerCaseCompanyCodeFilter)
+                    ),
+                columnToSort,
+                sortDirection
+              )}
             onChangeSearchWord={this.handleChangeSearchWord}
             enterSearchEdit={this.handleEnterSearchEdit}
             onChangeSort={this.handleChangeSort}
+            onChangeCompanyCodeFilter={this.handleChangeCompanyCodeFilter}
+            onChangeCompanyNameFilter={this.handleChangeCompanyNameFilter}
+            onChangeAddressFilter={this.handleChangeAddressFilter}
+            onChangeMailFilter={this.handleChangeMailFilter}
+            companyCodeFilter={companyCodeFilter}
+            companyNameFilter={companyNameFilter}
+            addressFilter={addressFilter}
+            mailFilter={mailFilter}
             header={header}
             columnToSort={columnToSort}
             sortDirection={sortDirection}
@@ -120,6 +165,10 @@ SearchContainer.propTypes = {
     name: PropTypes.string.isRequired,
     prop: PropTypes.string.isRequired
   })).isRequired,
+  companyCodeFilter: PropTypes.string.isRequired,
+  companyNameFilter: PropTypes.string.isRequired,
+  addressFilter: PropTypes.string.isRequired,
+  mailFilter: PropTypes.string.isRequired,
   columnToSort: PropTypes.string.isRequired,
   sortDirection: PropTypes.string.isRequired,
   isProcessing: PropTypes.bool.isRequired,
@@ -133,6 +182,10 @@ function mapStateToProps( state ){
     isProcessing,
     alertMessage,
     header,
+    companyCodeFilter,
+    companyNameFilter,
+    addressFilter,
+    mailFilter,
     columnToSort,
     sortDirection
   } = state.rootReducer.search;
@@ -142,6 +195,10 @@ function mapStateToProps( state ){
     isProcessing,
     alertMessage,
     header,
+    companyCodeFilter,
+    companyNameFilter,
+    addressFilter,
+    mailFilter,
     columnToSort,
     sortDirection
   };
