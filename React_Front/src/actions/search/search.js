@@ -11,6 +11,14 @@ function requestProcess(){
   return { type: 'SEARCH_REQUEST_PROCESS' };
 }
 
+// ソートチェンジ
+export function changeSortMode( columnName ) {
+  return {
+    type: 'CHANGE_SORT_MODE',
+    columnName
+  };  
+}
+
 export function searchData(){
   return ( dispatch, getState ) => {
     dispatch( requestProcess() );
@@ -42,7 +50,7 @@ export function searchData(){
 
 export function changeAlertMessage( message ){
   return {
-    type: 'CHANGE_ALERT_MESSAGE',
+    type: 'CHANGE_SEARCH_ALERT_MESSAGE',
     message
   }
 }

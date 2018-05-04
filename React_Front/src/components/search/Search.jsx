@@ -1,37 +1,45 @@
 import React, { Component, PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
-import { Table, TableBody, TableRow, TableRowColumn } from 'material-ui/Table';
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn
+} from "material-ui/Table";
 import RaisedButton from 'material-ui/RaisedButton';
+import CheckIcon from "material-ui/svg-icons/navigation/check";
+import DownArrow from "material-ui/svg-icons/navigation/arrow-drop-down";
+import UpArrow from "material-ui/svg-icons/navigation/arrow-drop-up";
 import Divider from 'material-ui/Divider';
-import DataTables from 'material-ui-datatables';
 
 
-// カラム名、キーの設定
-const TABLE_COLUMNS = [
-  {
-    key: 'company_code',
-    label: '会社コード',
-  }, {
-    key: 'company_name',
-    label: '会社名',
-  },
-  {
-    key: 'address',
-    label: '住所',
-  }, {
-    key: 'mail',
-    label: 'メールアドレス',
-  }
-];
+const row = (
+  x,
+  i,
+  header
+) => {
+  return (
+    <TableRow key={`tr-${i}`}>
+    {header.map((y, k) =>
+      <TableRowColumn key={`trc-${k}`}>
+        {x[y.prop]}
+      </TableRowColumn>
+      )}
+    </TableRow>
+  );
+};
 
 const Search = ({
   searchWord,
   searchedList,
-  count,
-  page,
-  rowSize,
+  header,
+  columnToSort,
+  sortDirection,
   onChangeSearchWord,
-  enterSearchEdit
+  enterSearchEdit,
+  onChangeSort
 }) => (
   <div>
     <div>
@@ -44,28 +52,44 @@ const Search = ({
       />
     </div>
     <div>
-      <DataTables
-        height={'auto'}
-        selectable={true}
-        multiSelectable={true}
-        showRowHover={true}
-        columns={TABLE_COLUMNS}
-        data={searchedList}
-        showCheckboxes={true}
-        showHeaderToolbar={true}
-        onPreviousPageClick={e => onPreviousPageClick(e)}
-        onNextPageClick={e => onNextPageClick(e)}
-        onRowSizeChange={e => onRowSizeChange(e, rowSize)}
-        onFilterValueChange={e => onFilterValueChange(e)}
-        onSortOrderChange={e => onSortOrderChange(e)}
-        count={count}
-        page={page}
-        rowSize={rowSize}
-      />
-      <Divider />
+      <Table>
+        <TableHeader>
+          <TableRow>
+            {header.map((x, i) => (
+              <TableHeaderColumn key={`thc-${i}`}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center"
+                  }}
+                  onClick={() => onChangeSort(x.prop)}
+                >
+                  <span>{x.name}</span>
+                  {columnToSort == x.prop ? (
+                    sortDirection === "asc" ? (
+                      <UpArrow />
+                    ) : (
+                      <DownArrow />
+                    )
+                  ) : null}
+                </div>
+              </TableHeaderColumn>
+            ))}
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {searchedList.map((x, i) =>
+            row(
+              x,
+              i,
+              header
+            )
+          )}
+        </TableBody>
+      </Table>
     </div>
   </div>
-)
+);
 
 Search.propTypes = {
   searchWord: PropTypes.string.isRequired,
@@ -75,11 +99,15 @@ Search.propTypes = {
     address:      PropTypes.string.isRequired,
     mail:         PropTypes.string.isRequired
   })).isRequired,
-  count: PropTypes.number.isRequired, 
-  page: PropTypes.number.isRequired, 
-  rowSize: PropTypes.number.isRequired,
+  header: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    prop: PropTypes.string.isRequired
+  })).isRequired,
+  columnToSort: PropTypes.string.isRequired,
+  sortDirection: PropTypes.string.isRequired,
   onChangeSearchWord: PropTypes.func.isRequired,
-  enterSearchEdit: PropTypes.func.isRequired
+  enterSearchEdit: PropTypes.func.isRequired,
+  onChangeSort: PropTypes.func.isRequired
 }
 
 export default Search;
