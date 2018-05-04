@@ -5,6 +5,8 @@ import { bindActionCreators } from 'redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
+import orderBy from "lodash/orderBy";
+
 import Search from '../../components/search/Search';
 import AlertDialog from '../../components/common/AlertDialog';
 import LoadingDialog from '../../components/common/LoadingDialog';
@@ -24,15 +26,11 @@ class SearchContainer extends Component {
 
     // テーブル制御系
     // 【フィルター項目】フィルター変更時
-    this.handleFilterValueChange = this.handleFilterValueChange.bind(this);
     // 【テーブルヘッダ（ソートキー）】押下時
-    this.handleSortOrderChange = this.handleSortOrderChange.bind(this);
+    this.handleChangeSort = this.handleChangeSort.bind(this);
     // 【ページ表示行数項目】変更時
-    this.handleRowSizeChange = this.handleRowSizeChange.bind(this);
     // 【前ページボタン】押下時
-    this.handlePreviousPageClick = this.handlePreviousPageClick.bind(this);
     // 【次ページボタン】押下時
-    this.handleNextPageClick = this.handleNextPageClick.bind(this);
   }
 
   // 【検索ワード入力項目】値変更時
@@ -49,6 +47,7 @@ class SearchContainer extends Component {
       searchActionBind.searchData();
     }
   }
+
   // 【アラートダイアログ】OKボタン押下時
   handleOnClickOkBtn(){
     const { searchActionBind } = this.props;
@@ -56,35 +55,18 @@ class SearchContainer extends Component {
   }
 
   // 【フィルター項目】フィルター変更時
-  handleFilterValueChange(e) {
-//    const { searchActionBind } = this.props;
-//    searchActionBind.changeFilterValue(e.target.value);
-    console.log('フィルタデバッグ：' + e.target.value)
-  }
 
   // 【テーブルヘッダ（ソートキー）】押下時
-  handleSortOrderChange(...args) {
-    // eslint-disable-next-line no-console
-    console.log('SortOrderChange', args);
+  handleChangeSort(e) {
+    const { searchActionBind } = this.props;
+    searchActionBind.changeSortMode(e);
   }
-
+  
   // 【ページ表示行数項目】変更時
-  handleRowSizeChange(rowSizeIndex, rowSize) {
-    const newState = Object.assign({}, this.state, { page: 1, rowSize });
-    this.setState(newState);
-  }
 
   // 【前ページボタン】押下時
-  handlePreviousPageClick() {
-    const newState = Object.assign({}, this.state, { page: this.state.page - 1 });
-    this.setState(newState);
-  }
 
   // 【次ページボタン】押下時
-  handleNextPageClick() {
-    const newState = Object.assign({}, this.state, { page: this.state.page + 1 });
-    this.setState(newState);
-  }
 
   
   render() {
@@ -93,30 +75,25 @@ class SearchContainer extends Component {
       searchedList,
       isProcessing,
       alertMessage,
-      count,
-      page,
-      rowSize,
-      filterValue
+      header,
+      columnToSort,
+      sortDirection
     } = this.props;
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <div>
           <Search
             searchWord={searchWord}
-            searchedList={searchedList}
-            count={searchedList.length}
-            page={page}
-            rowSize={rowSize}
-            filterValue={filterValue}
+            searchedList={orderBy(
+              searchedList,
+              columnToSort,
+              sortDirection)}
             onChangeSearchWord={this.handleChangeSearchWord}
             enterSearchEdit={this.handleEnterSearchEdit}
-            onPreviousPageClick={this.handlePreviousPageClick}
-            onNextPageClick={this.handleNextPageClick}
-            onRowSizeChange={this.handleRowSizeChange}
-            onCellClick={this.handleCellClick}
-            onCellDoubleClick={this.handleCellDoubleClick}
-            onFilterValueChange={this.handleFilterValueChange}
-            onSortOrderChange={this.handleSortOrderChange}
+            onChangeSort={this.handleChangeSort}
+            header={header}
+            columnToSort={columnToSort}
+            sortDirection={sortDirection}
           />
           <LoadingDialog
             isLoadingOpen={isProcessing}
@@ -139,12 +116,14 @@ SearchContainer.propTypes = {
     address:      PropTypes.string.isRequired,
     mail:         PropTypes.string.isRequired
   })).isRequired,
+  header: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    prop: PropTypes.string.isRequired
+  })).isRequired,
+  columnToSort: PropTypes.string.isRequired,
+  sortDirection: PropTypes.string.isRequired,
   isProcessing: PropTypes.bool.isRequired,
-  alertMessage: PropTypes.string.isRequired,
-  count: PropTypes.number.isRequired, 
-  page: PropTypes.number.isRequired, 
-  rowSize: PropTypes.number.isRequired,
-  filterValue: PropTypes.string.isRequired
+  alertMessage: PropTypes.string.isRequired
 }
 
 function mapStateToProps( state ){
@@ -153,20 +132,18 @@ function mapStateToProps( state ){
     searchedList,
     isProcessing,
     alertMessage,
-    count,
-    page,
-    rowSize,
-    filterValue
+    header,
+    columnToSort,
+    sortDirection
   } = state.rootReducer.search;
   return {
     searchWord,
     searchedList,
     isProcessing,
     alertMessage,
-    count,
-    page,
-    rowSize,
-    filterValue
+    header,
+    columnToSort,
+    sortDirection
   };
 }
 

@@ -1,13 +1,33 @@
 
 export default function search(state = {
-  searchWord: "",
+  searchWord: '',
   isProcessing: false,
   searchedList: [],
-  alertMessage: "",
-  count: 0,
-  page: 1,
-  rowSize: 10,
-  filterValue: ''
+  alertMessage: '',
+  columnToSort: '',
+  sortDirection: 'desc',
+  invertDirection:{
+    asc: 'desc',
+    desc: 'asc'
+  },
+  header: [
+    {
+      name: '会社コード',
+      prop: 'company_code'
+    },
+    {
+      name: '会社名',
+      prop: 'company_name'
+    },
+    {
+      name: '住所',
+      prop: 'address'
+    },
+    {
+      name: 'メールアドレス',
+      prop: 'mail'
+    }
+  ]
 }, action = {}){
   switch( action.type ){
     case 'CHANGE_SEARCH_WORD':
@@ -18,9 +38,13 @@ export default function search(state = {
       return Object.assign({}, state, {
         isProcessing: true
       });
-    case 'CHANGE_FILTER_VALUE':
+    case 'CHANGE_SORT_MODE':
       return Object.assign({}, state, {
-        filterValue: action.filterValue
+        columnToSort: action.columnName,
+        sortDirection:
+          state.columnToSort === action.columnName
+            ? state.invertDirection[state.sortDirection]
+            : "asc"
       });
     case 'SUCCESS_SEARCH':
       return Object.assign({}, state, {

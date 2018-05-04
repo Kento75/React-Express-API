@@ -11,10 +11,12 @@ function requestProcess(){
   return { type: 'SEARCH_REQUEST_PROCESS' };
 }
 
-// フィルターチェンジ
-export function changeFilterValue( filterValue ) {
-  return 'CHANGE_FILTER_VALUE',
-  filterValue
+// ソートチェンジ
+export function changeSortMode( columnName ) {
+  return {
+    type: 'CHANGE_SORT_MODE',
+    columnName
+  };  
 }
 
 export function searchData(){
