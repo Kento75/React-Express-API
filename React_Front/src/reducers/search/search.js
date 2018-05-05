@@ -3,6 +3,11 @@ export default function search(state = {
   searchWord: '',
   isProcessing: false,
   searchedList: [],
+  paginationSearchedList: [],
+  margin: 2,
+  page: 1,
+  count: 0,
+  total: 0,
   alertMessage: '',
   columnToSort: '',
   sortDirection: 'desc',
@@ -66,10 +71,17 @@ export default function search(state = {
             ? state.invertDirection[state.sortDirection]
             : "asc"
       });
+    case 'CHANGE_PAGE':
+      return Object.assign({}, state, {
+        page: action.page,
+        paginationSearchedList: state.searchedList.slice((action.page - 1) * 2, (action.page - 1) * 2 + 2)
+      });    
     case 'SUCCESS_SEARCH':
       return Object.assign({}, state, {
         isProcessing: false,
-        searchedList: action.searchedList
+        searchedList: action.searchedList,
+        total: action.searchedList.length,
+        paginationSearchedList: action.searchedList.slice(0, 2)
       });
     case 'FAILED_SEARCH':
       return Object.assign({}, state, {

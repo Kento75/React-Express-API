@@ -10,6 +10,7 @@ import orderBy from "lodash/orderBy";
 import Search from '../../components/search/Search';
 import AlertDialog from '../../components/common/AlertDialog';
 import LoadingDialog from '../../components/common/LoadingDialog';
+import Pagination from '../../components/common/Pagination/Pagination';
 import * as searchActions from '../../actions/search/search';
 
 
@@ -33,8 +34,7 @@ class SearchContainer extends Component {
     // 【テーブルヘッダ（ソートキー）】押下時
     this.handleChangeSort = this.handleChangeSort.bind(this);
     // 【ページ表示行数項目】変更時
-    // 【前ページボタン】押下時
-    // 【次ページボタン】押下時
+    this.handleChangePage = this.handleChangePage.bind(this);
   }
 
   // 【検索ワード入力項目】値変更時
@@ -86,16 +86,20 @@ class SearchContainer extends Component {
   }
   
   // 【ページ表示行数項目】変更時
-
-  // 【前ページボタン】押下時
-
-  // 【次ページボタン】押下時
-
+  handleChangePage(e) {
+    const { searchActionBind } = this.props;
+    searchActionBind.changePage(e);
+  }
   
   render() {
     const {
       searchWord,
       searchedList,
+      paginationSearchedList,
+      margin,
+      page,
+      count,
+      total,
       isProcessing,
       alertMessage,
       header,
@@ -115,9 +119,9 @@ class SearchContainer extends Component {
         <div>
           <Search
             searchWord={searchWord}
-            searchedList={
+            paginationSearchedList={
               orderBy(
-                searchedList.filter(x =>
+                paginationSearchedList.filter(x =>
                       x['company_code']
                       .toLowerCase()
                       .includes(lowerCaseCompanyCodeFilter) 
@@ -149,6 +153,7 @@ class SearchContainer extends Component {
             addressFilter={addressFilter}
             mailFilter={mailFilter}
             header={header}
+            page={page}
             columnToSort={columnToSort}
             sortDirection={sortDirection}
           />
@@ -158,6 +163,15 @@ class SearchContainer extends Component {
           <AlertDialog
             message={alertMessage}
             onCloseDialog={this.handleOnClickOkBtn}
+          />
+          <Pagination
+            margin={margin}
+            page={page}
+            count={ total === 0 
+              ? 0
+              : Math.ceil(total / 2)
+            }
+            onPageChange={this.handleChangePage}
           />
         </div>
       </MuiThemeProvider>
@@ -173,6 +187,16 @@ SearchContainer.propTypes = {
     address:      PropTypes.string.isRequired,
     mail:         PropTypes.string.isRequired
   })).isRequired,
+  paginationSearchedList: PropTypes.arrayOf(PropTypes.shape({
+    company_code: PropTypes.string.isRequired,
+    company_name: PropTypes.string.isRequired,
+    address:      PropTypes.string.isRequired,
+    mail:         PropTypes.string.isRequired
+  })).isRequired,
+  margin: PropTypes.number.isRequired,
+  page: PropTypes.number.isRequired,
+  count: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
   header: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     prop: PropTypes.string.isRequired
@@ -191,6 +215,11 @@ function mapStateToProps( state ){
   const {
     searchWord,
     searchedList,
+    paginationSearchedList,
+    margin,
+    page,
+    count,
+    total,
     isProcessing,
     alertMessage,
     header,
@@ -204,6 +233,11 @@ function mapStateToProps( state ){
   return {
     searchWord,
     searchedList,
+    paginationSearchedList,
+    margin,
+    page,
+    count,
+    total,
     isProcessing,
     alertMessage,
     header,
