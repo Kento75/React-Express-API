@@ -120,7 +120,19 @@ class SearchContainer extends Component {
                 searchedList.filter(x =>
                       x['company_code']
                       .toLowerCase()
-                      .includes(lowerCaseCompanyCodeFilter)
+                      .includes(lowerCaseCompanyCodeFilter) 
+                    ).filter(x =>
+                      x['company_name']
+                      .toLowerCase()
+                      .includes(lowerCaseCompanyNameFilter)
+                    ).filter(x =>
+                      x['address']
+                      .toLowerCase()
+                      .includes(lowerCaseAddressFilter)
+                    ).filter(x =>
+                      x['mail']
+                      .toLowerCase()
+                      .includes(lowerCaseMailFilter)
                     ),
                 columnToSort,
                 sortDirection
