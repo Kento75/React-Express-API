@@ -18,6 +18,11 @@ module.exports = {
         loader: "babel-loader",
         exclude: /node_modules/,
         include: path.join(__dirname, 'src')
+      },
+      {
+        test: /\.css$/,
+        loaders: ['style-loader', 'css-loader?modules'],
+        include: path.join(__dirname, 'src')
       }
     ]
   }

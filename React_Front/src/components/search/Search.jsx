@@ -14,6 +14,8 @@ import DownArrow from "material-ui/svg-icons/navigation/arrow-drop-down";
 import UpArrow from "material-ui/svg-icons/navigation/arrow-drop-up";
 import Divider from 'material-ui/Divider';
 
+import Pagination from '../common/Pagination/Pagination';
+
 
 const row = (
   x,
@@ -33,8 +35,9 @@ const row = (
 
 const Search = ({
   searchWord,
-  searchedList,
+  paginationSearchedList,
   header,
+  page,
   companyCodeFilter,
   companyNameFilter,
   addressFilter,
@@ -116,7 +119,7 @@ const Search = ({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {searchedList.map((x, i) =>
+          {paginationSearchedList.map((x, i) =>
             row(
               x,
               i,
@@ -125,13 +128,14 @@ const Search = ({
           )}
         </TableBody>
       </Table>
+      <Pagination/>
     </div>
   </div>
 );
 
 Search.propTypes = {
   searchWord: PropTypes.string.isRequired,
-  searchedList: PropTypes.arrayOf(PropTypes.shape({
+  paginationSearchedList: PropTypes.arrayOf(PropTypes.shape({
     company_code: PropTypes.string.isRequired,
     company_name: PropTypes.string.isRequired,
     address:      PropTypes.string.isRequired,

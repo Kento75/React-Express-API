@@ -19,6 +19,13 @@ export function changeCompanyCodeFilter( companyCodeFilter ) {
   }
 }
 
+export function changePage( page ) {
+  return {
+    type: 'CHANGE_PAGE',
+    page
+  }
+}
+
 export function changeCompanyNameFilter( companyNameFilter ) {
   return {
     type: 'CHANGE_COMPANY_NAME_FILTER',
