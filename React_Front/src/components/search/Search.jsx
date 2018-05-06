@@ -50,7 +50,8 @@ const Search = ({
   onChangeCompanyCodeFilter,
   onChangeCompanyNameFilter,
   onChangeAddressFilter,
-  onChangeMailFilter
+  onChangeMailFilter,
+  onRowSelect
 }) => (
   <div>
     <div>
@@ -98,7 +99,7 @@ const Search = ({
         fixedHeader="false"
         fixedFooter="false"
         multiSelectable="true"
-        onRowSelection={e => onCtRowSelect(e)}
+        onRowSelection={e => onRowSelect(e)}
       >
         <TableHeader
           displaySelectAll="true"
@@ -168,7 +169,8 @@ Search.propTypes = {
   sortDirection: PropTypes.string.isRequired,
   onChangeSearchWord: PropTypes.func.isRequired,
   enterSearchEdit: PropTypes.func.isRequired,
-  onChangeSort: PropTypes.func.isRequired
+  onChangeSort: PropTypes.func.isRequired,
+  onRowSelect: PropTypes.func.isRequired
 }
 
 export default Search;

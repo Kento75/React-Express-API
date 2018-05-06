@@ -35,6 +35,8 @@ class SearchContainer extends Component {
     this.handleChangeSort = this.handleChangeSort.bind(this);
     // 【ページ表示行数項目】変更時
     this.handleChangePage = this.handleChangePage.bind(this);
+    // チェックボックス
+    this.handleOnRowSelect = this.handleOnRowSelect.bind(this);
   }
 
   // 【検索ワード入力項目】値変更時
@@ -92,18 +94,9 @@ class SearchContainer extends Component {
   }
   
   // 検証　チェックボックス選択時のアクション
-  onCtRowSelect(indexes){
-    const { dispatch, bookCategories, onHover } = this.props;
-    var newSelected = [];
-    if(typeof indexes === "object"){
-      for (var i = indexes.length - 1; i >= 0; i--) {
-        newSelected.push(bookCategories[indexes[i]]);
-      }
-    }
-    else if (typeof indexes === "number"){
-        newSelected.push(bookCategories[indexes]);
-    }
-    dispatch(changeCtSelect(newSelected));
+  handleOnRowSelect(e){
+    const { searchActionBind } = this.props;
+    console.log(e);
   }
   
 
@@ -186,6 +179,7 @@ class SearchContainer extends Component {
             onChangeCompanyNameFilter={this.handleChangeCompanyNameFilter}
             onChangeAddressFilter={this.handleChangeAddressFilter}
             onChangeMailFilter={this.handleChangeMailFilter}
+            onRowSelect={this.handleOnRowSelect}
             companyCodeFilter={companyCodeFilter}
             companyNameFilter={companyNameFilter}
             addressFilter={addressFilter}
