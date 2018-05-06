@@ -4,7 +4,7 @@ export default function search(state = {
   isProcessing: false,
   searchedList: [],
   paginationSearchedList: [],
-  margin: 2,
+  margin: 1,
   page: 1,
   count: 0,
   total: 0,
@@ -74,14 +74,17 @@ export default function search(state = {
     case 'CHANGE_PAGE':
       return Object.assign({}, state, {
         page: action.page,
-        paginationSearchedList: state.searchedList.slice((action.page - 1) * 2, (action.page - 1) * 2 + 2)
+        paginationSearchedList: 
+          action.page === 1
+            ? state.searchedList.slice(0, 10)
+            : state.searchedList.slice((action.page - 1) * 10, (action.page - 1) * 10 + 1)
       });    
     case 'SUCCESS_SEARCH':
       return Object.assign({}, state, {
         isProcessing: false,
         searchedList: action.searchedList,
         total: action.searchedList.length,
-        paginationSearchedList: action.searchedList.slice(0, 2)
+        paginationSearchedList: action.searchedList.slice(0, 10)
       });
     case 'FAILED_SEARCH':
       return Object.assign({}, state, {

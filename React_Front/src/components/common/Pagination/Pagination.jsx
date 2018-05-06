@@ -1,7 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import './pagination_style.css';
 
+
+const defaultProps = {
+  margin: 1,
+  page: 1,
+  count: 0,
+  total: 0
+}
 
 class Pagination extends Component {
   constructor(props) {
@@ -10,8 +17,10 @@ class Pagination extends Component {
     this.onPageChange = this.onPageChange.bind(this);
     this.goFirstPage = this.goFirstPage.bind(this);
     this.goLastPage = this.goLastPage.bind(this);
+/*
     this.goPrevPage = this.goPrevPage.bind(this);
     this.goNextPage = this.goNextPage.bind(this);
+*/
   }
   componentWillReceiveProps(newProps) {
     if (newProps === this.props) return;
@@ -34,7 +43,7 @@ class Pagination extends Component {
   goLastPage() {
     this.props.onPageChange(this.state.count);
   }
-
+/*
   goPrevPage() {
     this.props.onPageChange(this.props.page - 1);
   }
@@ -42,34 +51,48 @@ class Pagination extends Component {
   goNextPage() {
     this.props.onPageChange(this.props.page + 1);
   }
-
+*/
   render() {
     const { startPage, endPage, count } = this.state;
     const { page, margin } = this.props;
     const pages = [];
-    const firstPage = page - margin > 1 ?
-          <div
-            className="pagination-button pagination-go-first"
-            onClick={this.goFirstPage}
-          >1</div> :
-          null;
-    const lastPage = page + margin < count ?
-          <div
-            className="pagination-button pagination-go-last"
-            onClick={this.goLastPage}
-          >{count}</div> :
-          null;
-    const prevPage = page === 1 ? null :
-          <div
-            className="pagination-button"
-            onClick={this.goPrevPage}
-          >prev</div>;
-    const nextPage = page === count ? null :
-          <div
-            className="pagination-button"
-            onClick={this.goNextPage}
-          >next</div>;
 
+    const firstPage = page - margin > 1
+          ? <div
+              className="pagination-button pagination-go-first"
+              onClick={this.goFirstPage}
+            >
+              1
+            </div>
+          : null;
+
+    const lastPage = page + margin < count
+          ? <div
+              className="pagination-button pagination-go-last"
+              onClick={this.goLastPage}
+            >
+              {count}
+            </div>
+          : null;
+/*
+    const prevPage = page === 1
+          ? null
+          : <div
+              className="pagination-button"
+              onClick={this.goPrevPage}
+            >
+              前のページ
+            </div>;
+
+    const nextPage = ((count === 0) || (page === count))
+          ? null
+          : <div
+              className="pagination-button"
+              onClick={this.goNextPage}
+            >
+              次のページ
+            </div>;
+*/
     for (let i = startPage; i <= endPage; i++) {
       pages.push(
         <li
@@ -87,17 +110,19 @@ class Pagination extends Component {
     return (
       <div id="pagination-container">
         <div id="pagination">
-          {prevPage}
+{/*          {prevPage}  */}
           {firstPage}
           <ul id="pagination-list">
             {pages}
           </ul>
           {lastPage}
-          {nextPage}
+{/*          {nextPage}  */}
         </div>
       </div>
     );
   }
 }
+
+Pagination.defaultProps = defaultProps;
 
 export default Pagination;
