@@ -120,8 +120,30 @@ class SearchContainer extends Component {
           <Search
             searchWord={searchWord}
             paginationSearchedList={
-              orderBy(
-                paginationSearchedList.filter(x =>
+              page === 1
+                ? orderBy(
+                    searchedList.filter(x =>
+                        x['company_code']
+                        .toLowerCase()
+                        .includes(lowerCaseCompanyCodeFilter) 
+                      ).filter(x =>
+                        x['company_name']
+                        .toLowerCase()
+                        .includes(lowerCaseCompanyNameFilter)
+                      ).filter(x =>
+                        x['address']
+                        .toLowerCase()
+                        .includes(lowerCaseAddressFilter)
+                      ).filter(x =>
+                        x['mail']
+                        .toLowerCase()
+                        .includes(lowerCaseMailFilter)
+                      ),
+                      columnToSort,
+                      sortDirection)
+                      .slice(0, 10)
+                : orderBy(
+                  searchedList.filter(x =>
                       x['company_code']
                       .toLowerCase()
                       .includes(lowerCaseCompanyCodeFilter) 
@@ -138,9 +160,9 @@ class SearchContainer extends Component {
                       .toLowerCase()
                       .includes(lowerCaseMailFilter)
                     ),
-                columnToSort,
-                sortDirection
-              )}
+                    columnToSort,
+                    sortDirection)
+                    .slice((page - 1) * 10, (page - 1) * 10 + 1)}
             onChangeSearchWord={this.handleChangeSearchWord}
             enterSearchEdit={this.handleEnterSearchEdit}
             onChangeSort={this.handleChangeSort}
