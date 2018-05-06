@@ -169,7 +169,7 @@ class SearchContainer extends Component {
             page={page}
             count={ total === 0 
               ? 0
-              : Math.ceil(total / 2)
+              : Math.ceil(total / 10)
             }
             onPageChange={this.handleChangePage}
           />

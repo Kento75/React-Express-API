@@ -62,6 +62,7 @@ const Search = ({
         onChange={e => onChangeSearchWord(e)}
       />
     </div>
+    <Divider />
     <div>
       <TextField
         hintText='会社コード'
