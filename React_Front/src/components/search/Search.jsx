@@ -94,8 +94,17 @@ const Search = ({
       />
     </div>
     <div>
-      <Table>
-        <TableHeader>
+      <Table
+        fixedHeader="false"
+        fixedFooter="false"
+        multiSelectable="true"
+        onRowSelection={e => onCtRowSelect(e)}
+      >
+        <TableHeader
+          displaySelectAll="true"
+          adjustForCheckbox="true"
+          enableSelectAll="true"
+        >
           <TableRow>
             {header.map((x, i) => (
               <TableHeaderColumn key={`thc-${i}`}>
@@ -128,6 +137,7 @@ const Search = ({
             )
           )}
         </TableBody>
+        <TableFooter />
       </Table>
       <Pagination/>
     </div>

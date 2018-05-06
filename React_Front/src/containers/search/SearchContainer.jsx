@@ -91,6 +91,22 @@ class SearchContainer extends Component {
     searchActionBind.changePage(e);
   }
   
+  // 検証　チェックボックス選択時のアクション
+  onCtRowSelect(indexes){
+    const { dispatch, bookCategories, onHover } = this.props;
+    var newSelected = [];
+    if(typeof indexes === "object"){
+      for (var i = indexes.length - 1; i >= 0; i--) {
+        newSelected.push(bookCategories[indexes[i]]);
+      }
+    }
+    else if (typeof indexes === "number"){
+        newSelected.push(bookCategories[indexes]);
+    }
+    dispatch(changeCtSelect(newSelected));
+  }
+  
+
   render() {
     const {
       searchWord,
