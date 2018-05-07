@@ -1,6 +1,7 @@
 import orderBy from "lodash/orderBy";
 
 export default function search(state = {
+  BtnMode: false,
   searchWord: '',
   isProcessing: false,
   searchedList: [],
@@ -62,8 +63,11 @@ export default function search(state = {
       });
       newList.push(pushRow)
       return Object.assign({}, state, {
-        selectList: newList
-
+        selectList: newList,
+        BtnMode: 
+          Object.keys(newList).length >= 1
+            ? true
+            : false
       });
     case 'CHANGE_COMPANY_CODE_FILTER':
       return Object.assign({}, state, {
@@ -363,7 +367,9 @@ export default function search(state = {
       });    
     case 'SUCCESS_SEARCH':
       return Object.assign({}, state, {
+        BtnMode: false,
         isProcessing: false,
+        selectList: [],
         searchedList: action.searchedList,
         total: action.searchedList.length,
         page: 1,
@@ -389,6 +395,19 @@ export default function search(state = {
             state.columnToSort,
             state.sortDirection)
             .slice(0, 10)
+      });
+    case 'SUCCESS_DELETE':
+      return Object.assign({}, state, {
+        BtnMode: false,
+        isProcessing: false,
+        alertMessage: action.message,
+        searchedList: [],
+        paginationSearchedList: [],
+        selectList:  [],
+        margin: 1,
+        page: 1,
+        count: 0,
+        total: 0      
       });
     case 'FAILED_SEARCH':
       return Object.assign({}, state, {

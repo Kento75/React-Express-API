@@ -35,6 +35,10 @@ class SearchContainer extends Component {
     this.handleChangePage = this.handleChangePage.bind(this);
     // チェックボックス
     this.handleOnRowSelect = this.handleOnRowSelect.bind(this);
+    // 削除ボタン押下時
+    this.handleOnClickDeleteBtn = this.handleOnClickDeleteBtn.bind(this);
+    // 更新ボタン押下時
+    this.handleOnClickUpdateBtn = this.handleOnClickUpdateBtn.bind(this);
   }
 
   // 【検索ワード入力項目】値変更時
@@ -96,10 +100,23 @@ class SearchContainer extends Component {
     const { searchActionBind } = this.props;
     searchActionBind.selectRow(e);
   }
+
+  // 削除ボタン押下時
+  handleOnClickDeleteBtn() {
+    const { searchActionBind } = this.props;
+    searchActionBind.deleteData();
+  }
   
+  // todo 
+  // 更新ボタン押下時
+  handleOnClickUpdateBtn() {
+
+
+  }
 
   render() {
     const {
+      BtnMode,
       searchWord,
       searchedList,
       paginationSearchedList,
@@ -122,6 +139,7 @@ class SearchContainer extends Component {
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <div>
           <Search
+            BtnMode={BtnMode}
             searchWord={searchWord}
             selectList={selectList}
             paginationSearchedList={paginationSearchedList}
@@ -133,6 +151,8 @@ class SearchContainer extends Component {
             onChangeAddressFilter={this.handleChangeAddressFilter}
             onChangeMailFilter={this.handleChangeMailFilter}
             onRowSelect={this.handleOnRowSelect}
+            onClickDeleteBtn={this.handleOnClickDeleteBtn}
+            onClickUpdateBtn={this.handleOnClickUpdateBtn}
             companyCodeFilter={companyCodeFilter}
             companyNameFilter={companyNameFilter}
             addressFilter={addressFilter}
@@ -165,6 +185,7 @@ class SearchContainer extends Component {
 };
 
 SearchContainer.propTypes = {
+  BtnMode: PropTypes.bool.isRequired,
   searchWord: PropTypes.string.isRequired,
   searchedList: PropTypes.arrayOf(PropTypes.shape({
     company_code: PropTypes.string.isRequired,
@@ -199,6 +220,7 @@ SearchContainer.propTypes = {
 
 function mapStateToProps( state ){
   const {
+    BtnMode,
     searchWord,
     searchedList,
     selectList,
@@ -218,6 +240,7 @@ function mapStateToProps( state ){
     sortDirection
   } = state.rootReducer.search;
   return {
+    BtnMode,
     searchWord,
     searchedList,
     selectList,

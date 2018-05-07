@@ -50,7 +50,7 @@ export function registarCreateData(){
     const create_address      = getState().rootReducer.create.create_address;
     const create_mail         = getState().rootReducer.create.create_mail;
 
-    return makeRequest('http://localhost:3000/companyAdd', 'post',
+    return makeRequest('http://localhost:3000/add', 'post',
       { company_code: create_company_code,
         company_name: create_company_name,
         address:      create_address,

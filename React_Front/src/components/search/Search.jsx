@@ -18,6 +18,17 @@ import Divider from 'material-ui/Divider';
 import Pagination from '../common/Pagination/Pagination';
 
 
+const styles = {
+  registerBtn: {
+    display: {
+      display: 'inline-block'
+    },
+    hide: {
+      display: 'none'
+    }
+  }
+}
+
 const row = (
   x,
   i,
@@ -35,6 +46,7 @@ const row = (
 };
 
 const Search = ({
+  BtnMode,
   searchWord,
   selectList,
   paginationSearchedList,
@@ -53,7 +65,9 @@ const Search = ({
   onChangeCompanyNameFilter,
   onChangeAddressFilter,
   onChangeMailFilter,
-  onRowSelect
+  onRowSelect,
+  onClickDeleteBtn,
+  onClickUpdateBtn
 }) => (
   <div>
     <div>
@@ -63,6 +77,20 @@ const Search = ({
         value={searchWord}
         onKeyDown={e => enterSearchEdit(e)}
         onChange={e => onChangeSearchWord(e)}
+      />
+      <span>&nbsp;&nbsp;</span>
+      <RaisedButton
+        label="削除"
+        secondary={true}
+        style={ (BtnMode) ? styles.registerBtn.display : styles.registerBtn.hide }
+        onClick={onClickDeleteBtn}
+      />
+      <span>&nbsp;&nbsp;</span>
+      <RaisedButton
+        label="更新"
+        secondary={true}
+        style={ (BtnMode) ? styles.registerBtn.display : styles.registerBtn.hide }
+        onClick={onClickUpdateBtn}
       />
     </div>
     <Divider />
@@ -148,6 +176,7 @@ const Search = ({
 );
 
 Search.propTypes = {
+  BtnMode: PropTypes.bool.isRequired,
   searchWord: PropTypes.string.isRequired,
   paginationSearchedList: PropTypes.arrayOf(PropTypes.shape({
     company_code: PropTypes.string.isRequired,
@@ -173,7 +202,9 @@ Search.propTypes = {
   onChangeSearchWord: PropTypes.func.isRequired,
   enterSearchEdit: PropTypes.func.isRequired,
   onChangeSort: PropTypes.func.isRequired,
-  onRowSelect: PropTypes.func.isRequired
+  onRowSelect: PropTypes.func.isRequired,
+  onClickDeleteBtn: PropTypes.func.isRequired,
+  onClickUpdateBtn: PropTypes.func.isRequired
 }
 
 export default Search;
