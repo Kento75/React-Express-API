@@ -4,6 +4,7 @@ import {
   Table,
   TableBody,
   TableHeader,
+  TableFooter,
   TableHeaderColumn,
   TableRow,
   TableRowColumn
@@ -16,6 +17,17 @@ import Divider from 'material-ui/Divider';
 
 import Pagination from '../common/Pagination/Pagination';
 
+
+const styles = {
+  registerBtn: {
+    display: {
+      display: 'inline-block'
+    },
+    hide: {
+      display: 'none'
+    }
+  }
+}
 
 const row = (
   x,
@@ -34,7 +46,9 @@ const row = (
 };
 
 const Search = ({
+  BtnMode,
   searchWord,
+  selectList,
   paginationSearchedList,
   header,
   page,
@@ -50,7 +64,10 @@ const Search = ({
   onChangeCompanyCodeFilter,
   onChangeCompanyNameFilter,
   onChangeAddressFilter,
-  onChangeMailFilter
+  onChangeMailFilter,
+  onRowSelect,
+  onClickDeleteBtn,
+  onClickUpdateBtn
 }) => (
   <div>
     <div>
@@ -60,6 +77,20 @@ const Search = ({
         value={searchWord}
         onKeyDown={e => enterSearchEdit(e)}
         onChange={e => onChangeSearchWord(e)}
+      />
+      <span>&nbsp;&nbsp;</span>
+      <RaisedButton
+        label="削除"
+        secondary={true}
+        style={ (BtnMode) ? styles.registerBtn.display : styles.registerBtn.hide }
+        onClick={onClickDeleteBtn}
+      />
+      <span>&nbsp;&nbsp;</span>
+      <RaisedButton
+        label="更新"
+        secondary={true}
+        style={ (BtnMode) ? styles.registerBtn.display : styles.registerBtn.hide }
+        onClick={onClickUpdateBtn}
       />
     </div>
     <Divider />
@@ -94,8 +125,17 @@ const Search = ({
       />
     </div>
     <div>
-      <Table>
-        <TableHeader>
+      <Table
+        fixedHeader={false}
+        fixedFooter={false}
+        multiSelectable={true}
+        onRowSelection={e => onRowSelect(e)}
+      >
+        <TableHeader
+          displaySelectAll={true}
+          adjustForCheckbox={true}
+          enableSelectAll={true}
+        >
           <TableRow>
             {header.map((x, i) => (
               <TableHeaderColumn key={`thc-${i}`}>
@@ -128,6 +168,7 @@ const Search = ({
             )
           )}
         </TableBody>
+        <TableFooter />
       </Table>
       <Pagination/>
     </div>
@@ -135,6 +176,7 @@ const Search = ({
 );
 
 Search.propTypes = {
+  BtnMode: PropTypes.bool.isRequired,
   searchWord: PropTypes.string.isRequired,
   paginationSearchedList: PropTypes.arrayOf(PropTypes.shape({
     company_code: PropTypes.string.isRequired,
@@ -142,6 +184,7 @@ Search.propTypes = {
     address:      PropTypes.string.isRequired,
     mail:         PropTypes.string.isRequired
   })).isRequired,
+  selectList: PropTypes.any.isRequired,
   header: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     prop: PropTypes.string.isRequired
@@ -158,7 +201,10 @@ Search.propTypes = {
   sortDirection: PropTypes.string.isRequired,
   onChangeSearchWord: PropTypes.func.isRequired,
   enterSearchEdit: PropTypes.func.isRequired,
-  onChangeSort: PropTypes.func.isRequired
+  onChangeSort: PropTypes.func.isRequired,
+  onRowSelect: PropTypes.func.isRequired,
+  onClickDeleteBtn: PropTypes.func.isRequired,
+  onClickUpdateBtn: PropTypes.func.isRequired
 }
 
 export default Search;

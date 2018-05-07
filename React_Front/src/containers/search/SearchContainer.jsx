@@ -5,8 +5,6 @@ import { bindActionCreators } from 'redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import orderBy from "lodash/orderBy";
-
 import Search from '../../components/search/Search';
 import AlertDialog from '../../components/common/AlertDialog';
 import LoadingDialog from '../../components/common/LoadingDialog';
@@ -35,6 +33,12 @@ class SearchContainer extends Component {
     this.handleChangeSort = this.handleChangeSort.bind(this);
     // 【ページ表示行数項目】変更時
     this.handleChangePage = this.handleChangePage.bind(this);
+    // チェックボックス
+    this.handleOnRowSelect = this.handleOnRowSelect.bind(this);
+    // 削除ボタン押下時
+    this.handleOnClickDeleteBtn = this.handleOnClickDeleteBtn.bind(this);
+    // 更新ボタン押下時
+    this.handleOnClickUpdateBtn = this.handleOnClickUpdateBtn.bind(this);
   }
 
   // 【検索ワード入力項目】値変更時
@@ -91,11 +95,32 @@ class SearchContainer extends Component {
     searchActionBind.changePage(e);
   }
   
+  // 検証　チェックボックス選択時のアクション
+  handleOnRowSelect(e){
+    const { searchActionBind } = this.props;
+    searchActionBind.selectRow(e);
+  }
+
+  // 削除ボタン押下時
+  handleOnClickDeleteBtn() {
+    const { searchActionBind } = this.props;
+    searchActionBind.deleteData();
+  }
+  
+  // todo 
+  // 更新ボタン押下時
+  handleOnClickUpdateBtn() {
+
+
+  }
+
   render() {
     const {
+      BtnMode,
       searchWord,
       searchedList,
       paginationSearchedList,
+      selectList,
       margin,
       page,
       count,
@@ -110,59 +135,14 @@ class SearchContainer extends Component {
       columnToSort,
       sortDirection
     } = this.props;
-    const lowerCaseCompanyCodeFilter = companyCodeFilter.toLowerCase();
-    const lowerCaseCompanyNameFilter = companyNameFilter.toLowerCase();
-    const lowerCaseAddressFilter = addressFilter.toLowerCase();
-    const lowerCaseMailFilter = mailFilter.toLowerCase();    
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <div>
           <Search
+            BtnMode={BtnMode}
             searchWord={searchWord}
-            paginationSearchedList={
-              page === 1
-                ? orderBy(
-                    searchedList.filter(x =>
-                        x['company_code']
-                        .toLowerCase()
-                        .includes(lowerCaseCompanyCodeFilter) 
-                      ).filter(x =>
-                        x['company_name']
-                        .toLowerCase()
-                        .includes(lowerCaseCompanyNameFilter)
-                      ).filter(x =>
-                        x['address']
-                        .toLowerCase()
-                        .includes(lowerCaseAddressFilter)
-                      ).filter(x =>
-                        x['mail']
-                        .toLowerCase()
-                        .includes(lowerCaseMailFilter)
-                      ),
-                      columnToSort,
-                      sortDirection)
-                      .slice(0, 10)
-                : orderBy(
-                  searchedList.filter(x =>
-                      x['company_code']
-                      .toLowerCase()
-                      .includes(lowerCaseCompanyCodeFilter) 
-                    ).filter(x =>
-                      x['company_name']
-                      .toLowerCase()
-                      .includes(lowerCaseCompanyNameFilter)
-                    ).filter(x =>
-                      x['address']
-                      .toLowerCase()
-                      .includes(lowerCaseAddressFilter)
-                    ).filter(x =>
-                      x['mail']
-                      .toLowerCase()
-                      .includes(lowerCaseMailFilter)
-                    ),
-                    columnToSort,
-                    sortDirection)
-                    .slice((page - 1) * 10, (page - 1) * 10 + 1)}
+            selectList={selectList}
+            paginationSearchedList={paginationSearchedList}
             onChangeSearchWord={this.handleChangeSearchWord}
             enterSearchEdit={this.handleEnterSearchEdit}
             onChangeSort={this.handleChangeSort}
@@ -170,6 +150,9 @@ class SearchContainer extends Component {
             onChangeCompanyNameFilter={this.handleChangeCompanyNameFilter}
             onChangeAddressFilter={this.handleChangeAddressFilter}
             onChangeMailFilter={this.handleChangeMailFilter}
+            onRowSelect={this.handleOnRowSelect}
+            onClickDeleteBtn={this.handleOnClickDeleteBtn}
+            onClickUpdateBtn={this.handleOnClickUpdateBtn}
             companyCodeFilter={companyCodeFilter}
             companyNameFilter={companyNameFilter}
             addressFilter={addressFilter}
@@ -202,6 +185,7 @@ class SearchContainer extends Component {
 };
 
 SearchContainer.propTypes = {
+  BtnMode: PropTypes.bool.isRequired,
   searchWord: PropTypes.string.isRequired,
   searchedList: PropTypes.arrayOf(PropTypes.shape({
     company_code: PropTypes.string.isRequired,
@@ -209,6 +193,7 @@ SearchContainer.propTypes = {
     address:      PropTypes.string.isRequired,
     mail:         PropTypes.string.isRequired
   })).isRequired,
+  selectList: PropTypes.any.isRequired,
   paginationSearchedList: PropTypes.arrayOf(PropTypes.shape({
     company_code: PropTypes.string.isRequired,
     company_name: PropTypes.string.isRequired,
@@ -235,8 +220,10 @@ SearchContainer.propTypes = {
 
 function mapStateToProps( state ){
   const {
+    BtnMode,
     searchWord,
     searchedList,
+    selectList,
     paginationSearchedList,
     margin,
     page,
@@ -253,8 +240,10 @@ function mapStateToProps( state ){
     sortDirection
   } = state.rootReducer.search;
   return {
+    BtnMode,
     searchWord,
     searchedList,
+    selectList,
     paginationSearchedList,
     margin,
     page,

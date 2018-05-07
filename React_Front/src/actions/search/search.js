@@ -55,12 +55,19 @@ export function changeSortMode( columnName ) {
   };  
 }
 
+export function selectRow( index ) {
+  return {
+    type: 'SELECT_ROW',
+    index
+  }
+}
+
 export function searchData(){
   return ( dispatch, getState ) => {
     dispatch( requestProcess() );
 
     const searchWord = getState().rootReducer.search.searchWord;
-    return makeRequest('http://localhost:3000/companyFind', 'post', { searchWord })
+    return makeRequest('http://localhost:3000/find', 'post', { searchWord })
       .then(response => {
         if (response.status === 200) {
           return dispatch({
@@ -79,6 +86,35 @@ export function searchData(){
           return dispatch({
                     type: 'FAILED_SEARCH',
                     message: "検索に失敗しました。"
+                  });
+      });
+  };
+}
+
+export function deleteData(){
+  return ( dispatch, getState ) => {
+    dispatch( requestProcess() );
+
+    const selectList = getState().rootReducer.search.selectList;
+    return makeRequest('http://localhost:3000/remove', 'post', { selectList })
+      .then(response => {
+        if (response.status === 200) {
+          return dispatch({
+                    type: 'SUCCESS_DELETE',
+                    message: "削除に成功しました。"
+                  });
+        }
+        else {
+          return dispatch({
+                    type: 'FAILED_SEARCH',
+                    message: "削除に失敗しました。"
+                  });
+        }
+      })
+      .catch(() => {
+          return dispatch({
+                    type: 'FAILED_SEARCH',
+                    message: "削除に失敗しました。"
                   });
       });
   };
