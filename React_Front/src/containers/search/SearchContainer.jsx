@@ -5,8 +5,6 @@ import { bindActionCreators } from 'redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import orderBy from "lodash/orderBy";
-
 import Search from '../../components/search/Search';
 import AlertDialog from '../../components/common/AlertDialog';
 import LoadingDialog from '../../components/common/LoadingDialog';
@@ -96,7 +94,7 @@ class SearchContainer extends Component {
   // 検証　チェックボックス選択時のアクション
   handleOnRowSelect(e){
     const { searchActionBind } = this.props;
-    console.log(e);
+    searchActionBind.selectRow(e);
   }
   
 
@@ -105,6 +103,7 @@ class SearchContainer extends Component {
       searchWord,
       searchedList,
       paginationSearchedList,
+      selectList,
       margin,
       page,
       count,
@@ -119,59 +118,13 @@ class SearchContainer extends Component {
       columnToSort,
       sortDirection
     } = this.props;
-    const lowerCaseCompanyCodeFilter = companyCodeFilter.toLowerCase();
-    const lowerCaseCompanyNameFilter = companyNameFilter.toLowerCase();
-    const lowerCaseAddressFilter = addressFilter.toLowerCase();
-    const lowerCaseMailFilter = mailFilter.toLowerCase();    
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <div>
           <Search
             searchWord={searchWord}
-            paginationSearchedList={
-              page === 1
-                ? orderBy(
-                    searchedList.filter(x =>
-                        x['company_code']
-                        .toLowerCase()
-                        .includes(lowerCaseCompanyCodeFilter) 
-                      ).filter(x =>
-                        x['company_name']
-                        .toLowerCase()
-                        .includes(lowerCaseCompanyNameFilter)
-                      ).filter(x =>
-                        x['address']
-                        .toLowerCase()
-                        .includes(lowerCaseAddressFilter)
-                      ).filter(x =>
-                        x['mail']
-                        .toLowerCase()
-                        .includes(lowerCaseMailFilter)
-                      ),
-                      columnToSort,
-                      sortDirection)
-                      .slice(0, 10)
-                : orderBy(
-                  searchedList.filter(x =>
-                      x['company_code']
-                      .toLowerCase()
-                      .includes(lowerCaseCompanyCodeFilter) 
-                    ).filter(x =>
-                      x['company_name']
-                      .toLowerCase()
-                      .includes(lowerCaseCompanyNameFilter)
-                    ).filter(x =>
-                      x['address']
-                      .toLowerCase()
-                      .includes(lowerCaseAddressFilter)
-                    ).filter(x =>
-                      x['mail']
-                      .toLowerCase()
-                      .includes(lowerCaseMailFilter)
-                    ),
-                    columnToSort,
-                    sortDirection)
-                    .slice((page - 1) * 10, (page - 1) * 10 + 1)}
+            selectList={selectList}
+            paginationSearchedList={paginationSearchedList}
             onChangeSearchWord={this.handleChangeSearchWord}
             enterSearchEdit={this.handleEnterSearchEdit}
             onChangeSort={this.handleChangeSort}
@@ -219,6 +172,12 @@ SearchContainer.propTypes = {
     address:      PropTypes.string.isRequired,
     mail:         PropTypes.string.isRequired
   })).isRequired,
+  selectList: PropTypes.arrayOf(PropTypes.shape({
+    company_code: PropTypes.string.isRequired,
+    company_name: PropTypes.string.isRequired,
+    address:      PropTypes.string.isRequired,
+    mail:         PropTypes.string.isRequired
+  })).isRequired,
   paginationSearchedList: PropTypes.arrayOf(PropTypes.shape({
     company_code: PropTypes.string.isRequired,
     company_name: PropTypes.string.isRequired,
@@ -247,6 +206,7 @@ function mapStateToProps( state ){
   const {
     searchWord,
     searchedList,
+    selectList,
     paginationSearchedList,
     margin,
     page,
@@ -265,6 +225,7 @@ function mapStateToProps( state ){
   return {
     searchWord,
     searchedList,
+    selectList,
     paginationSearchedList,
     margin,
     page,

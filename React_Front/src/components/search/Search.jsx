@@ -4,6 +4,7 @@ import {
   Table,
   TableBody,
   TableHeader,
+  TableFooter,
   TableHeaderColumn,
   TableRow,
   TableRowColumn
@@ -35,6 +36,7 @@ const row = (
 
 const Search = ({
   searchWord,
+  selectList,
   paginationSearchedList,
   header,
   page,
@@ -96,15 +98,15 @@ const Search = ({
     </div>
     <div>
       <Table
-        fixedHeader="false"
-        fixedFooter="false"
-        multiSelectable="true"
+        fixedHeader={false}
+        fixedFooter={false}
+        multiSelectable={true}
         onRowSelection={e => onRowSelect(e)}
       >
         <TableHeader
-          displaySelectAll="true"
-          adjustForCheckbox="true"
-          enableSelectAll="true"
+          displaySelectAll={true}
+          adjustForCheckbox={true}
+          enableSelectAll={true}
         >
           <TableRow>
             {header.map((x, i) => (
@@ -148,6 +150,12 @@ const Search = ({
 Search.propTypes = {
   searchWord: PropTypes.string.isRequired,
   paginationSearchedList: PropTypes.arrayOf(PropTypes.shape({
+    company_code: PropTypes.string.isRequired,
+    company_name: PropTypes.string.isRequired,
+    address:      PropTypes.string.isRequired,
+    mail:         PropTypes.string.isRequired
+  })).isRequired,
+  selectList: PropTypes.arrayOf(PropTypes.shape({
     company_code: PropTypes.string.isRequired,
     company_name: PropTypes.string.isRequired,
     address:      PropTypes.string.isRequired,

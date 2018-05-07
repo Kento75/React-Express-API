@@ -55,6 +55,13 @@ export function changeSortMode( columnName ) {
   };  
 }
 
+export function selectRow( index ) {
+  return {
+    type: 'SELECT_ROW',
+    index
+  }
+}
+
 export function searchData(){
   return ( dispatch, getState ) => {
     dispatch( requestProcess() );
