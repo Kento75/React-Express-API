@@ -155,12 +155,7 @@ Search.propTypes = {
     address:      PropTypes.string.isRequired,
     mail:         PropTypes.string.isRequired
   })).isRequired,
-  selectList: PropTypes.arrayOf(PropTypes.shape({
-    company_code: PropTypes.string.isRequired,
-    company_name: PropTypes.string.isRequired,
-    address:      PropTypes.string.isRequired,
-    mail:         PropTypes.string.isRequired
-  })).isRequired,
+  selectList: PropTypes.any.isRequired,
   header: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     prop: PropTypes.string.isRequired

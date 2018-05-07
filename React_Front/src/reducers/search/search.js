@@ -5,7 +5,7 @@ export default function search(state = {
   isProcessing: false,
   searchedList: [],
   paginationSearchedList: [],
-  selectList: [],
+  selectList:  [],
   margin: 1,
   page: 1,
   count: 0,
@@ -50,8 +50,20 @@ export default function search(state = {
         isProcessing: true
       });
     case 'SELECT_ROW':
+      var pushRow ={
+        "company_code": state.paginationSearchedList[action.index]["company_code"],
+        "company_name": state.paginationSearchedList[action.index]["company_name"],
+        "address": state.paginationSearchedList[action.index]["address"],
+        "mail": state.paginationSearchedList[action.index]["mail"]
+      }
+      var newList = [];
+      state.selectList.forEach(function(value){
+        newList.push(value)
+      });
+      newList.push(pushRow)
       return Object.assign({}, state, {
-        selectList: state.selectList[state.selectList.length] = state.paginationSearchedList[index]
+        selectList: newList
+
       });
     case 'CHANGE_COMPANY_CODE_FILTER':
       return Object.assign({}, state, {
