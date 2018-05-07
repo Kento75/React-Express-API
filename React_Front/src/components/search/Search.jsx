@@ -133,7 +133,6 @@ const Search = ({
       >
         <TableHeader
           displaySelectAll={true}
-          adjustForCheckbox={true}
           enableSelectAll={true}
         >
           <TableRow>
@@ -159,7 +158,9 @@ const Search = ({
             ))}
           </TableRow>
         </TableHeader>
-        <TableBody>
+        <TableBody
+          deselectOnClickaway={false}
+        >
           {paginationSearchedList.map((x, i) =>
             row(
               x,
