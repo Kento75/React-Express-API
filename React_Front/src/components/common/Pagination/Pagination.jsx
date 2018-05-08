@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import classnames from 'classnames';
-import styles from './pagination_style.css';
+import RaisedButton from 'material-ui/RaisedButton';
 
 
 const defaultProps = {
@@ -10,6 +9,10 @@ const defaultProps = {
   total: 0
 }
 
+const style = {
+  margin: 6,
+};
+
 class Pagination extends Component {
   constructor(props) {
     super(props);
@@ -17,10 +20,7 @@ class Pagination extends Component {
     this.onPageChange = this.onPageChange.bind(this);
     this.goFirstPage = this.goFirstPage.bind(this);
     this.goLastPage = this.goLastPage.bind(this);
-/*
-    this.goPrevPage = this.goPrevPage.bind(this);
-    this.goNextPage = this.goNextPage.bind(this);
-*/
+
   }
   componentWillReceiveProps(newProps) {
     if (newProps === this.props) return;
@@ -43,64 +43,35 @@ class Pagination extends Component {
   goLastPage() {
     this.props.onPageChange(this.state.count);
   }
-/*
-  goPrevPage() {
-    this.props.onPageChange(this.props.page - 1);
-  }
 
-  goNextPage() {
-    this.props.onPageChange(this.props.page + 1);
-  }
-*/
   render() {
     const { startPage, endPage, count } = this.state;
     const { page, margin } = this.props;
     const pages = [];
 
     const firstPage = page - margin > 1
-          ? <div
-              className="styles.paginationButton"
+          ? <RaisedButton
+              label="1"
+              primary={true}
+              style={style}
               onClick={this.goFirstPage}
-            >
-              1
-            </div>
+            />
           : null;
 
     const lastPage = page + margin < count
-          ? <div
-              className="styles.paginationButton"
+          ? <RaisedButton
+              label={count}
+              primary={true}
+              style={style}
               onClick={this.goLastPage}
-            >
-              {count}
-            </div>
+            />
           : null;
-/*
-    const prevPage = page === 1
-          ? null
-          : <div
-              className="pagination-button"
-              onClick={this.goPrevPage}
-            >
-              前のページ
-            </div>;
 
-    const nextPage = ((count === 0) || (page === count))
-          ? null
-          : <div
-              className="pagination-button"
-              onClick={this.goNextPage}
-            >
-              次のページ
-            </div>;
-*/
     for (let i = startPage; i <= endPage; i++) {
       pages.push(
         <li
           key={i}
           onClick={this.onPageChange}
-          className={classnames('styles.paginationListItem', 'styles.paginationButton', {
-            active: i === this.props.page
-          })}
         >
           {i}
         </li>
@@ -108,17 +79,15 @@ class Pagination extends Component {
     }
 
     return (
-      <div className="styles.paginationContainer">
-        <div className="styles.pagination">
-{/*          {prevPage}  */}
+      <span>
+        <span>
           {firstPage}
-          <ul className="styles.paginationList">
+          <ul style={{display : 'inline-block'}}>
             {pages}
           </ul>
           {lastPage}
-{/*          {nextPage}  */}
-        </div>
-      </div>
+        </span>
+      </span>
     );
   }
 }

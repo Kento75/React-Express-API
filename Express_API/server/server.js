@@ -17,8 +17,10 @@ app.use(bodyParser.urlencoded({ extended: true }))
 const companyMasterController = db.controllers && db.controllers.CompanyMaster;
 if (companyMasterController) {
   console.log("*********************");
-  app.post('/companyFind', companyMasterController.companyFind);
-  app.post('/companyAdd', companyMasterController.companyAdd);
+  app.post('/find', companyMasterController.companyFind);
+  app.post('/add', companyMasterController.companyAdd);
+  app.post('/remove', companyMasterController.companyRemove);
+  app.post('/update', companyMasterController.companyUpdate);
 }
 
 app.listen(3000, function(err) {

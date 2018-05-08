@@ -95,8 +95,8 @@ export function deleteData(){
   return ( dispatch, getState ) => {
     dispatch( requestProcess() );
 
-    const selectList = getState().rootReducer.search.selectList;
-    return makeRequest('http://localhost:3000/remove', 'post', { selectList })
+    const deleteList = getState().rootReducer.search.selectList;
+    return makeRequest('http://localhost:3000/remove', 'post', { deleteList })
       .then(response => {
         if (response.status === 200) {
           return dispatch({

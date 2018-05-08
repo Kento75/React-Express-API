@@ -44,7 +44,20 @@ export function companyAdd(req, res) {
   });
 }
 
+
+// 会社マスタ削除処理
+export function companyRemove(req, res) {
+  return res.status(200).json();
+}
+
+// 会社マスタ更新処理
+export function companyUpdate(req, res) {
+  return res.status(200).json();
+}
+
 export default {
   companyFind,
-  companyAdd
+  companyAdd,
+  companyRemove,
+  companyUpdate
 };

@@ -32,10 +32,11 @@ const styles = {
 const row = (
   x,
   i,
-  header
+  header,
+  selectList
 ) => {
   return (
-    <TableRow key={`tr-${i}`}>
+    <TableRow key={`tr-${i}`} selected={selectList.indexOf(i) !== -1}>
     {header.map((y, k) =>
       <TableRowColumn key={`trc-${k}`}>
         {x[y.prop]}
@@ -132,9 +133,9 @@ const Search = ({
         onRowSelection={e => onRowSelect(e)}
       >
         <TableHeader
-          displaySelectAll={true}
-          adjustForCheckbox={true}
-          enableSelectAll={true}
+          deselectOnClickaway={false}
+          displaySelectAll={false}
+          enableSelectAll={false}
         >
           <TableRow>
             {header.map((x, i) => (
@@ -159,12 +160,15 @@ const Search = ({
             ))}
           </TableRow>
         </TableHeader>
-        <TableBody>
+        <TableBody
+          deselectOnClickaway={false}
+        >
           {paginationSearchedList.map((x, i) =>
             row(
               x,
               i,
-              header
+              header,
+              selectList
             )
           )}
         </TableBody>
