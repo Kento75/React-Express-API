@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
-import styles from './pagination_style.css';
+import './pagination_style.css';
 
 
 const defaultProps = {
@@ -58,21 +58,21 @@ class Pagination extends Component {
     const pages = [];
 
     const firstPage = page - margin > 1
-          ? <div
-              className="styles.paginationButton"
+          ? <span
+              className="pagination-button"
               onClick={this.goFirstPage}
             >
               1
-            </div>
+            </span>
           : null;
 
     const lastPage = page + margin < count
-          ? <div
-              className="styles.paginationButton"
+          ? <span
+              className="pagination-button"
               onClick={this.goLastPage}
             >
               {count}
-            </div>
+            </span>
           : null;
 /*
     const prevPage = page === 1
@@ -95,30 +95,30 @@ class Pagination extends Component {
 */
     for (let i = startPage; i <= endPage; i++) {
       pages.push(
-        <li
+        <span
           key={i}
           onClick={this.onPageChange}
-          className={classnames('styles.paginationListItem', 'styles.paginationButton', {
+          className={classnames('pagination-list-item', 'pagination-button', {
             active: i === this.props.page
           })}
         >
           {i}
-        </li>
+        </span>
       );
     }
 
     return (
-      <div className="styles.paginationContainer">
-        <div className="styles.pagination">
+      <span id="pagination-container">
+        <span id="pagination">
 {/*          {prevPage}  */}
           {firstPage}
-          <ul className="styles.paginationList">
+          <span id="pagination-list">
             {pages}
-          </ul>
+          </span>
           {lastPage}
 {/*          {nextPage}  */}
-        </div>
-      </div>
+        </span>
+      </span>
     );
   }
 }
