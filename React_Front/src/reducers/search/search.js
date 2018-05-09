@@ -26,18 +26,22 @@ export default function search(state = {
   mailFilter: '',
   header: [
     {
+      primary: true,
       name: '会社コード',
       prop: 'company_code'
     },
     {
+      primary: false,
       name: '会社名',
       prop: 'company_name'
     },
     {
+      primary: false,
       name: '住所',
       prop: 'address'
     },
     {
+      primary: false,
       name: 'メールアドレス',
       prop: 'mail'
     }

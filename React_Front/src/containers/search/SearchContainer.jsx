@@ -182,6 +182,7 @@ class SearchContainer extends Component {
             onPageChange={this.handleChangePage}
           />
           <UpdateDialog
+            header={header}
             updateMode={updateMode}
             updateList={updateList}
           />
