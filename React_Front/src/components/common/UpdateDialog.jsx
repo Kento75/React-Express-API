@@ -6,9 +6,34 @@ import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
 
 
+const row = (
+  x,
+  i,
+  header,
+  updateList
+) => {
+  return (
+    <div>
+      {header.map((y, k) =>
+        <div>
+          {
+            y.primary
+              ? <h3>{y.name}：{y.prop}</h3>
+              : <TextField
+                  hintText={y.name}
+                  value={x[y.prop]}
+                />
+          }
+        </div>
+      )}
+    </div>
+  );
+};
+
 const UpdateDialog = ({
   updateMode,
-  updateList
+  updateList,
+  header
 }) => (
   <Dialog
     actions={[
@@ -26,13 +51,23 @@ const UpdateDialog = ({
     open={updateMode}
     autoScrollBodyContent={true}
   >
-  
+    <div>
+      {updateList.map((x, i) => (
+        row(
+          x,
+          i,
+          header,
+          updateList
+        )
+      ))}
+    </div>
   </Dialog>
 );
 
 UpdateDialog.propTypes = {
   updateMode: PropTypes.bool.isRequired,
-  updateList: PropTypes.any
+  updateList: PropTypes.any,
+  header: PropTypes.any
 };
 
 export default UpdateDialog;
