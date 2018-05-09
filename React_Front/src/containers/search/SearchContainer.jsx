@@ -8,6 +8,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Search from '../../components/search/Search';
 import AlertDialog from '../../components/common/AlertDialog';
 import LoadingDialog from '../../components/common/LoadingDialog';
+import UpdateDialog from '../../components/common/UpdateDialog';
 import Pagination from '../../components/common/Pagination/Pagination';
 import * as searchActions from '../../actions/search/search';
 
@@ -110,12 +111,14 @@ class SearchContainer extends Component {
   // todo 
   // 更新ボタン押下時
   handleOnClickUpdateBtn() {
-
-
+    const { searchActionBind } = this.props;
+    searchActionBind.showUpdateDialog();
   }
 
   render() {
     const {
+      updateMode,
+      updateList,
       BtnMode,
       searchWord,
       searchedList,
@@ -178,6 +181,10 @@ class SearchContainer extends Component {
             }
             onPageChange={this.handleChangePage}
           />
+          <UpdateDialog
+            updateMode={updateMode}
+            updateList={updateList}
+          />
         </div>
       </MuiThemeProvider>
     );
@@ -185,6 +192,13 @@ class SearchContainer extends Component {
 };
 
 SearchContainer.propTypes = {
+  updateMode: PropTypes.bool.isRequired,
+  updateList: PropTypes.arrayOf(PropTypes.shape({
+    company_code: PropTypes.string.isRequired,
+    company_name: PropTypes.string.isRequired,
+    address:      PropTypes.string.isRequired,
+    mail:         PropTypes.string.isRequired
+  })).isRequired,
   BtnMode: PropTypes.bool.isRequired,
   searchWord: PropTypes.string.isRequired,
   searchedList: PropTypes.arrayOf(PropTypes.shape({
@@ -220,6 +234,8 @@ SearchContainer.propTypes = {
 
 function mapStateToProps( state ){
   const {
+    updateMode,
+    updateList,
     BtnMode,
     searchWord,
     searchedList,
@@ -240,6 +256,8 @@ function mapStateToProps( state ){
     sortDirection
   } = state.rootReducer.search;
   return {
+    updateMode,
+    updateList,
     BtnMode,
     searchWord,
     searchedList,
