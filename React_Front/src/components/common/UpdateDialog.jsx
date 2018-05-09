@@ -16,12 +16,10 @@ const UpdateDialog = ({
         label="キャンセル"
         primary={true}
         keyboardFocused={true}
-        onClick={}
       />,
       <RaisedButton
         label="更新実行"
         primary={true}
-        onTouchTap={}
       />
     ]}
     modal={false}
@@ -32,9 +30,9 @@ const UpdateDialog = ({
   </Dialog>
 );
 
-ResultDialog.propTypes = {
+UpdateDialog.propTypes = {
   updateMode: PropTypes.bool.isRequired,
-  message: PropTypes.string.isRequired
+  updateList: PropTypes.any
 };
 
-export default ResultDialog;
+export default UpdateDialog;

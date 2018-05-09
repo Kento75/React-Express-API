@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
-
+import style from './pagination_style.js';
 
 const defaultProps = {
   margin: 1,
@@ -8,10 +8,6 @@ const defaultProps = {
   count: 0,
   total: 0
 }
-
-const style = {
-  margin: 6,
-};
 
 class Pagination extends Component {
   constructor(props) {
@@ -50,36 +46,31 @@ class Pagination extends Component {
     const pages = [];
 
     const firstPage = page - margin > 1
-          ? <RaisedButton
-              label="1"
-              primary={true}
-              style={style}
+          ? <div
+              style={style.firstOrLastEln}
               onClick={this.goFirstPage}
-            />
+            >
+              {count}
+            </div>
           : null;
 
     const lastPage = page + margin < count
-          ? <RaisedButton
-              label={count}
-              primary={true}
-              style={style}
+          ? <div
+              style={style.firstOrLastEln}
               onClick={this.goLastPage}
-            />
+            >
+              {count}
+            </div>
           : null;
 
     for (let i = startPage; i <= endPage; i++) {
       pages.push(
         <li
-          style={{display : 'inline-block'}}
+          style={style.pageEln}
           key={i}
-          
+          onClick={this.onPageChange}
         >
-          <RaisedButton
-            label={i}
-            primary={true}
-            style={style}
-            onClick={this.onPageChange}
-          />          
+         {i}
         </li>
       );
     }
@@ -88,9 +79,9 @@ class Pagination extends Component {
       <span>
         <span>
           {firstPage}
-          <span style={{display : 'inline-block'}}>
+          <ul style={{display : 'inline-block'}}>
             {pages}
-          </span>
+          </ul>
           {lastPage}
         </span>
       </span>

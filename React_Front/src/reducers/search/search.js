@@ -4,6 +4,7 @@ export default function search(state = {
   BtnMode: false,
   searchWord: '',
   updateMode: false,
+  updateList:[],
   isProcessing: false,
   searchedList: [],
   paginationSearchedList: [],
