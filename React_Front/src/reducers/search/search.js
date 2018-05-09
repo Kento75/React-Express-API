@@ -3,6 +3,7 @@ import orderBy from "lodash/orderBy";
 export default function search(state = {
   BtnMode: false,
   searchWord: '',
+  updateMode: false,
   isProcessing: false,
   searchedList: [],
   paginationSearchedList: [],
@@ -115,7 +116,7 @@ export default function search(state = {
           ),
           state.columnToSort,
           state.sortDirection)
-          .slice((state.page - 1) * 10, (state.page - 1) * 10 + 1)
+          .slice((state.page - 1) * 10, (state.page - 1) * 10 + 10)
       });
     case 'CHANGE_COMPANY_NAME_FILTER':
       return Object.assign({}, state, {
@@ -163,7 +164,7 @@ export default function search(state = {
           ),
           state.columnToSort,
           state.sortDirection)
-          .slice((state.page - 1) * 10, (state.page - 1) * 10 + 1)
+          .slice((state.page - 1) * 10, (state.page - 1) * 10 + 10)
       });
     case 'CHANGE_ADDRESS_FILTER':
       return Object.assign({}, state, {
@@ -211,7 +212,7 @@ export default function search(state = {
           ),
           state.columnToSort,
           state.sortDirection)
-          .slice((state.page - 1) * 10, (state.page - 1) * 10 + 1)
+          .slice((state.page - 1) * 10, (state.page - 1) * 10 + 10)
       });
     case 'CHANGE_MAIL_FILTER':
       return Object.assign({}, state, {
@@ -259,7 +260,7 @@ export default function search(state = {
           ),
           state.columnToSort,
           state.sortDirection)
-          .slice((state.page - 1) * 10, (state.page - 1) * 10 + 1)
+          .slice((state.page - 1) * 10, (state.page - 1) * 10 + 10)
       });
     case 'CHANGE_SORT_MODE':
       return Object.assign({}, state, {
@@ -315,7 +316,7 @@ export default function search(state = {
               state.columnToSort === action.columnName
               ? state.invertDirection[state.sortDirection]
               : "asc")
-              .slice((state.page - 1) * 10, (state.page - 1) * 10 + 1)
+              .slice((state.page - 1) * 10, (state.page - 1) * 10 + 10)
       });
     case 'CHANGE_PAGE':
       return Object.assign({}, state, {
@@ -363,8 +364,13 @@ export default function search(state = {
             ),
             state.columnToSort,
             state.sortDirection)
-            .slice((action.page - 1) * 10, (action.page - 1) * 10 + 1)
-      });    
+            .slice((action.page - 1) * 10, (action.page - 1) * 10 + 10)
+      });
+    case 'SHOW_UPDATE_DIALOG':
+      return Object.assign({}, state, {
+        updateMode: true,
+        updateList: state.selectList
+      });
     case 'SUCCESS_SEARCH':
       return Object.assign({}, state, {
         BtnMode: false,

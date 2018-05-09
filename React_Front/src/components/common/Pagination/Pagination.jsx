@@ -70,10 +70,16 @@ class Pagination extends Component {
     for (let i = startPage; i <= endPage; i++) {
       pages.push(
         <li
+          style={{display : 'inline-block'}}
           key={i}
-          onClick={this.onPageChange}
+          
         >
-          {i}
+          <RaisedButton
+            label={i}
+            primary={true}
+            style={style}
+            onClick={this.onPageChange}
+          />          
         </li>
       );
     }
@@ -82,9 +88,9 @@ class Pagination extends Component {
       <span>
         <span>
           {firstPage}
-          <ul style={{display : 'inline-block'}}>
+          <span style={{display : 'inline-block'}}>
             {pages}
-          </ul>
+          </span>
           {lastPage}
         </span>
       </span>

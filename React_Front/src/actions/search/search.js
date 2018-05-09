@@ -91,6 +91,13 @@ export function searchData(){
   };
 }
 
+// 更新ダイアログの表示
+export function showUpdateDialog() {
+  return {
+    type: 'SHOW_UPDATE_DIALOG'
+  };
+}
+
 export function deleteData(){
   return ( dispatch, getState ) => {
     dispatch( requestProcess() );
