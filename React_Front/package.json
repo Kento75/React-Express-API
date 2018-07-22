@@ -11,7 +11,7 @@
   "engines": {
     "node": "8.x"
   },
-  "author": "Your Name",
+  "author": "Kento75",
   "license": "MIT",
   "description": "search screen sample by react + redux + material-ui + MongoDB",
   "dependencies": {
